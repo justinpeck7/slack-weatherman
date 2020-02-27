@@ -1,0 +1,27 @@
+{
+  "name": "slack-weatherman",
+  "version": "1.0.0",
+  "description": "slack robit",
+  "main": "weatherman.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justinpeck7/slack-weatherman.git"
+  },
+  "author": "Justin Peck",
+  "license": "ISC",
+  "homepage": "https://github.com/justinpeck7/slack-weatherman#readme",
+  "dependencies": {
+    "@slack/rtm-api": "^5.0.3",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
+    "luxon": "^1.22.0",
+    "node-cron": "^2.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0"
+  }
+}
