@@ -15,9 +15,8 @@ const getCommand = input => {
 const handleMessage = async (event, rtm) => {
   const command = getCommand(event.text);
   if (command && botFns[command]) {
-    const response = await botFns[command](
-      event.text.replace(`!${command}`, "")
-    );
+    const input = event.text.replace(`!${command}`, "").trim();
+    const response = await botFns[command](input);
     try {
       await rtm.sendMessage(response, event.channel);
     } catch (e) {

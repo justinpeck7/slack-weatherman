@@ -16,7 +16,7 @@ const define = async input => {
     return "No results.";
   } catch (e) {
     log(`ERR UrbanDict API -- ${e}`);
-    return "The dictionary API seems to be down right now";
+    return "Looks like the dictionary API is down right now";
   }
 };
 
