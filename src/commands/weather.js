@@ -1,4 +1,5 @@
 import axios from "axios";
+import _get from "lodash.get";
 import getLogger from "../logger";
 
 const log = getLogger();
@@ -23,7 +24,12 @@ const weather = async input => {
       const res = await axios.get(weatherDataApi(input));
       return getReplyText(res.data);
     } catch (e) {
-      log(`ERR Weather API with input "${input}" -- ${e}`);
+      const reason = _get(e, "response.data.message", "");
+      if (reason === "city not found") {
+        return "City not found";
+      }
+
+      log(`ERR Weather API ${reason} with input "${input}" -- ${e}`);
       return "Weather API Error";
     }
   }

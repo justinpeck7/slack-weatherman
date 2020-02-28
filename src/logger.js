@@ -35,7 +35,7 @@ app.get("/", (req, res, next) => {
 app.listen(8080);
 
 const createLogger = () => {
-  const datePrefix = DateTime.local().toFormat("dd-LLL-yyyy h:mm");
+  const datePrefix = DateTime.local().toFormat("dd-LLL-yyyy t");
   const writeStream = fs.createWriteStream(LOG_FILE_PATH, {
     flags: "a"
   });
