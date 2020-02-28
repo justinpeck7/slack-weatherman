@@ -23,8 +23,8 @@ const weather = async input => {
       const res = await axios.get(weatherDataApi(input));
       return getReplyText(res.data);
     } catch (e) {
-      log(`ERR Weather API -- ${e}`);
-      return "Looks like the weather API is down right now";
+      log(`ERR Weather API with input "${input}" -- ${e}`);
+      return "Weather API Error";
     }
   }
 };

@@ -1,6 +1,9 @@
 import fs from "fs";
 import DateTime from "luxon/src/datetime.js";
 import cron from "node-cron";
+import express from "express";
+
+const app = express();
 
 let log;
 const LOG_FILE_PATH = `${__dirname}/../logs/log.txt`;
@@ -17,6 +20,19 @@ const clearLogsTask = cron.schedule(
     scheduled: false
   }
 );
+
+app.get("/", (req, res, next) => {
+  res.sendFile("log.txt", { root: `${__dirname}/../logs/` }, err => {
+    if (err) {
+      if (log) {
+        log(`Express ERR -- ${err}`);
+      }
+      next(err);
+    }
+  });
+});
+
+app.listen(8080);
 
 const createLogger = () => {
   const datePrefix = DateTime.local().toFormat("dd-LLL-yyyy h:mm");
