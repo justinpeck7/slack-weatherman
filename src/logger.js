@@ -32,7 +32,7 @@ app.get("/", (req, res, next) => {
   });
 });
 
-app.listen(80);
+app.listen(8080);
 
 const createLogger = () => {
   const datePrefix = DateTime.local().toFormat("dd-LLL-yyyy t");
