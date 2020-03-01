@@ -5,7 +5,8 @@
   "globals": {
     "process": true,
     "console": true,
-    "__dirname": true
+    "__dirname": true,
+    "require": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {
