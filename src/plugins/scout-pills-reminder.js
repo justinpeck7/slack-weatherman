@@ -1,25 +1,17 @@
 import axios from "axios";
 import cron from "node-cron";
 
-const getUsers = async token => {
-  const res = await axios.get(
-    `https://slack.com/api/users.list?token=${token}`
-  );
-  return res.data;
-};
-
 const getIms = async token => {
   const res = await axios.get(`https://slack.com/api/im.list?token=${token}`);
   return res.data;
 };
 
 export default {
-  async install({ rtm, log, token }) {
+  install: async ({ rtm, log, token, users }) => {
     try {
-      const userList = await getUsers(token);
       const imList = await getIms(token);
 
-      const me = userList.members.find(
+      const me = users.find(
         member => member.real_name === "Justin Peck"
       );
       const convoWithMe = imList.ims.find(im => im.user === me.id);
