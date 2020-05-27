@@ -4,7 +4,8 @@
   "description": "slack robit",
   "main": "weatherman.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "clear-logs": "rm ./logs/log.txt"
   },
   "repository": {
     "type": "git",
