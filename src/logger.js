@@ -13,7 +13,7 @@ app.get("/", (req, res, next) => {
   res.sendFile(
     "log.txt",
     { root: path.resolve(__dirname, "../logs/") },
-    err => {
+    (err) => {
       if (err) {
         if (log) {
           log(`Express ERR -- ${err}`);
@@ -29,25 +29,30 @@ app.listen(8080);
 const clearLogsTask = cron.schedule(
   "0 0 1 * *",
   () => {
-    fs.writeFile(LOG_FILE_PATH, "", err => {
+    fs.writeFile(LOG_FILE_PATH, "", (err) => {
       if (err) {
         log(`ERR emptying log file -- ${err}`);
       }
     });
   },
   {
-    scheduled: false
+    scheduled: false,
   }
 );
 
 const createLogger = () => {
   const datePrefix = DateTime.local().toFormat("dd-LLL-yyyy t");
   const writeStream = fs.createWriteStream(LOG_FILE_PATH, {
-    flags: "a"
+    flags: "a",
   });
 
   clearLogsTask.start();
-  log = text => writeStream.write(`${datePrefix}: ${text}\n`);
+  log = (text) => {
+    if (typeof text === "object") {
+      text = JSON.stringify(text);
+    }
+    writeStream.write(`${datePrefix}: ${text}\n`);
+  };
 };
 
 const getLogger = () => {
