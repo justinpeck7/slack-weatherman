@@ -16,9 +16,7 @@ const rtm = new RTMClient(token);
     log("Bot start");
     installPlugins({ rtm, log, token });
     rtm.on("message", (event) => handleMessage(event, rtm));
-    rtm.on("goodbye", (event) =>
-      log(`Goodbye event -- ${JSON.stringify(event)}`)
-    );
+    rtm.on("goodbye", () => log("Disconnect"));
   } catch (e) {
     log(`ERR Starting bot -- ${e}`);
   }
