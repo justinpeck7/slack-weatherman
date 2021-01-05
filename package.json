@@ -16,7 +16,7 @@
   "homepage": "https://github.com/justinpeck7/slack-weatherman#readme",
   "dependencies": {
     "@slack/rtm-api": "^5.0.3",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
