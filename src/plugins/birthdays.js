@@ -3,6 +3,7 @@ import { getChannel } from "../slack-utils";
 import birthdays from "./birthdays.json";
 
 export default {
+  name: "birthdays",
   install: async ({ rtm, log, token }) => {
     const dtChat = await getChannel("dt_chat", token);
     if (!dtChat) {

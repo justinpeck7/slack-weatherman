@@ -21,11 +21,12 @@ const installPlugins = async ({ rtm, log, token }) => {
       return;
     }
     for (const file of files) {
+      const plugin = require(`${pluginPath}/${file}`).default;
       try {
-        const plugin = require(`${pluginPath}/${file}`).default;
         plugin.install({ rtm, log, token, users });
+        log(`Installed plugin: ${plugin.name}`);
       } catch (e) {
-        log(`ERR: installing ${file} plugin -- ${JSON.stringify(e)}`);
+        log(`ERR: installing ${plugin.name} plugin -- ${JSON.stringify(e)}`);
       }
     }
   });
