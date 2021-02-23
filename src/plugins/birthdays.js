@@ -1,6 +1,6 @@
 import cron from "node-cron";
 import { getChannel } from "../slack-utils";
-import birthdays from "./birthdays.json";
+import birthdays from "../storage/birthdays.json";
 
 export default {
   name: "birthdays",
