@@ -16,7 +16,7 @@ app.get("/", (req, res, next) => {
     (err) => {
       if (err) {
         if (log) {
-          log(`Express ERR -- ${err}`);
+          log(`ERR: express -- ${JSON.stringify(err)}`);
         }
         next(err);
       }
@@ -31,7 +31,7 @@ const clearLogsTask = cron.schedule(
   () => {
     fs.writeFile(LOG_FILE_PATH, "", (err) => {
       if (err) {
-        log(`ERR emptying log file -- ${err}`);
+        log(`ERR: emptying log file -- ${JSON.stringify(err)}`);
       }
     });
   },

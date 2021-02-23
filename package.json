@@ -15,14 +15,14 @@
   "license": "ISC",
   "homepage": "https://github.com/justinpeck7/slack-weatherman#readme",
   "dependencies": {
-    "@slack/rtm-api": "^5.0.3",
-    "axios": "^0.19.2",
+    "@slack/rtm-api": "^5.0.5",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "lodash.get": "^4.4.2",
-    "luxon": "^1.22.0",
-    "node-cron": "^2.0.3"
+    "luxon": "^1.26.0",
+    "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0"

@@ -1,15 +1,14 @@
 import path from "path";
 import fs from "fs";
-import axios from "axios";
+import fetch from "node-fetch";
 
 const getUsers = async (token, log) => {
   try {
-    const res = await axios.get(
-      `https://slack.com/api/users.list?token=${token}`
-    );
-    return res.data.members;
+    const res = await fetch(`https://slack.com/api/users.list?token=${token}`);
+    const json = await res.json();
+    return json.members;
   } catch (e) {
-    log(`ERR getting users -- ${e}`);
+    log(`ERR: fetching users -- ${JSON.stringify(e)}`);
   }
 };
 
@@ -18,7 +17,7 @@ const installPlugins = async ({ rtm, log, token }) => {
   const pluginPath = path.join(__dirname, "plugins");
   fs.readdir(pluginPath, (err, files) => {
     if (err) {
-      log(`ERR reading plugin directory -- ${err}`);
+      log(`ERR: plugin directory read -- ${JSON.stringify(err)}`);
       return;
     }
     for (const file of files) {
@@ -26,7 +25,7 @@ const installPlugins = async ({ rtm, log, token }) => {
         const plugin = require(`${pluginPath}/${file}`).default;
         plugin.install({ rtm, log, token, users });
       } catch (e) {
-        log(`ERR installing ${file} plugin -- ${e}`);
+        log(`ERR: installing ${file} plugin -- ${JSON.stringify(e)}`);
       }
     }
   });

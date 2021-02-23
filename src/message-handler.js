@@ -5,7 +5,7 @@ import getLogger from "./logger";
 const log = getLogger();
 const botFns = { define, weather };
 
-const getCommand = input => {
+const getCommand = (input) => {
   if (input[0] === "!") {
     return input.split(" ")[0].slice(1);
   }
@@ -18,9 +18,14 @@ const handleMessage = async (event, rtm) => {
     const input = event.text.replace(`!${command}`, "").trim();
     const response = await botFns[command](input);
     try {
+      log(`CMD: ${event.text} => ${response}`);
       await rtm.sendMessage(response, event.channel);
     } catch (e) {
-      log(`ERR RTM -- command: ${command}, error: ${e}`);
+      log(
+        `ERR: ${command} command with input ${
+          event.text
+        }, error: ${JSON.stringify(e)}`
+      );
     }
   }
 };

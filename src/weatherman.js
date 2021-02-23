@@ -18,6 +18,6 @@ const rtm = new RTMClient(token);
     rtm.on("message", (event) => handleMessage(event, rtm));
     rtm.on("goodbye", () => log("Disconnect"));
   } catch (e) {
-    log(`ERR Starting bot -- ${e}`);
+    log(`ERR: Bot start -- ${JSON.stringify(e)}`);
   }
 })();
