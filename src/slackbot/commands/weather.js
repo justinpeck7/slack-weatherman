@@ -1,8 +1,7 @@
 import fetch from "node-fetch";
 import _get from "lodash.get";
-import getLogger from "../logger";
+import WeathermanDAO from "../../server/dao";
 
-const log = getLogger();
 const zipRegex = /^\d{5}$/;
 const weatherDataApi = (zip) =>
   `http://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=${process.env.WEATHER_APPID}&units=imperial`;
@@ -30,7 +29,7 @@ const weather = async (input) => {
         return "City not found";
       }
 
-      log(
+      WeathermanDAO.log(
         `ERR: Weather API ${reason} with input "${input}" -- ${JSON.stringify(
           e
         )}`

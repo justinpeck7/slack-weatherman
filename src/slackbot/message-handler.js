@@ -1,8 +1,7 @@
 import define from "./commands/define";
 import weather from "./commands/weather";
-import getLogger from "./logger";
+import WeathermanDAO from "../server/dao";
 
-const log = getLogger();
 const botFns = { define, weather };
 
 const getCommand = (input) => {
@@ -18,10 +17,10 @@ const handleMessage = async (event, rtm) => {
     const input = event.text.replace(`!${command}`, "").trim();
     const response = await botFns[command](input);
     try {
-      log(`CMD: ${event.text} => ${response}`);
+      WeathermanDAO.log(`CMD: ${event.text} => ${response}`);
       await rtm.sendMessage(response, event.channel);
     } catch (e) {
-      log(
+      WeathermanDAO.log(
         `ERR: ${command} command with input ${
           event.text
         }, error: ${JSON.stringify(e)}`

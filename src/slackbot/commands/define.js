@@ -1,7 +1,6 @@
 import fetch from "node-fetch";
-import getLogger from "../logger";
+import WeathermanDAO from "../../server/dao";
 
-const log = getLogger();
 const urbanDictApi = (searchTerm) =>
   `http://api.urbandictionary.com/v0/define?term=${searchTerm}`;
 
@@ -17,7 +16,9 @@ const define = async (input) => {
     }
     return "No.";
   } catch (e) {
-    log(`ERR: UrbanDict API with input "${input}" -- ${JSON.stringify(e)}`);
+    WeathermanDAO.log(
+      `ERR: UrbanDict API with input "${input}" -- ${JSON.stringify(e)}`
+    );
     return "Dictionary API Error";
   }
 };

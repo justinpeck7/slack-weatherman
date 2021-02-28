@@ -1,23 +1,19 @@
-import dotenv from "dotenv";
 import { RTMClient } from "@slack/rtm-api";
-import getLogger from "./logger";
+import WeathermanDAO from "../server/dao";
 import handleMessage from "./message-handler";
 import installPlugins from "./install-plugins";
 
-dotenv.config();
-
 const token = process.env.SLACK_TOKEN;
-const log = getLogger();
 const rtm = new RTMClient(token);
 
-(async () => {
+export const startBot = async () => {
   try {
     await rtm.start();
-    log("Bot start");
-    installPlugins({ rtm, log, token });
+    WeathermanDAO.log("Bot start");
+    installPlugins({ rtm, token });
     rtm.on("message", (event) => handleMessage(event, rtm));
-    rtm.on("goodbye", () => log("Disconnect"));
+    /* rtm.on("goodbye", () => WeathermanDAO.log("Disconnect")); */
   } catch (e) {
-    log(`ERR: Bot start -- ${JSON.stringify(e)}`);
+    WeathermanDAO.log(`ERR: Bot start -- ${JSON.stringify(e)}`);
   }
-})();
+};
