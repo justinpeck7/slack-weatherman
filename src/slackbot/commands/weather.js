@@ -1,5 +1,4 @@
 import fetch from "node-fetch";
-import _get from "lodash.get";
 import WeathermanDAO from "../../server/dao";
 
 const zipRegex = /^\d{5}$/;
@@ -24,7 +23,10 @@ const weather = async (input) => {
       const json = await res.json();
       return getReplyText(json);
     } catch (e) {
-      const reason = _get(e, "response.data.message", "");
+      let reason;
+      if (e.response && e.response.data) {
+        reason = e.response.data.message;
+      }
       if (reason === "city not found") {
         return "City not found";
       }
