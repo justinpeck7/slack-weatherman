@@ -5,8 +5,7 @@
   "main": "weatherman.js",
   "scripts": {
     "start": "node index.js",
-    "create-db": "node create-db.js",
-    "clear-logs": "rm ./logs/log.txt"
+    "create-db": "node create-db.js"
   },
   "repository": {
     "type": "git",
