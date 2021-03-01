@@ -12,7 +12,6 @@ export const startBot = async () => {
     WeathermanDAO.log("Bot start");
     installPlugins({ rtm, token });
     rtm.on("message", (event) => handleMessage(event, rtm));
-    /* rtm.on("goodbye", () => WeathermanDAO.log("Disconnect")); */
   } catch (e) {
     WeathermanDAO.log(`ERR: Bot start -- ${JSON.stringify(e)}`);
   }
