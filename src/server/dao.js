@@ -58,7 +58,7 @@ class WeathermanDAO {
    * @returns {Array} all logs
    */
   async getAllLogs() {
-    return await this.runQueryAll("SELECT * from logs ORDER BY timestamp DESC");
+    return await this.runQueryAll("SELECT * from logs ORDER BY timestamp ASC");
   }
 
   /**
