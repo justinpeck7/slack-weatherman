@@ -9,9 +9,9 @@
     />
     <script type="text/javascript">
       const formatTimestamp = (timestamp) => {
+        const date = new Date(timestamp);
         let minutes = date.getMinutes();
         if (minutes < 10) minutes = `0${minutes}`;
-        const date = new Date(timestamp);
         return `${
           date.getMonth() + 1
         }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
