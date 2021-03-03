@@ -24,8 +24,8 @@ class WeathermanDAO {
     return new Promise((resolve, reject) => {
       this.db.all(sql, params, (err, rows) => {
         if (err) {
-          console.log(`[dao.runQueryAll] Error running sql: ${sql}`);
-          console.log(err);
+          this.log(`[dao.runQueryAll] Error running sql: ${sql}`);
+          this.log(err);
           reject(err);
         } else {
           resolve(rows);
@@ -43,8 +43,8 @@ class WeathermanDAO {
     return new Promise((resolve, reject) => {
       this.db.run(sql, params, function (err) {
         if (err) {
-          console.log(`[dao.run] Error running sql: ${sql}`);
-          console.log(err);
+          this.log(`[dao.run] Error running sql: ${sql}`);
+          this.log(err);
           reject(err);
         } else {
           resolve({ id: this.lastID });
