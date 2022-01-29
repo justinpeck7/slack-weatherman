@@ -10,7 +10,7 @@ export const getIms = async (token) => {
 
 export const getChannel = async (channelName, token) => {
   const res = await fetch(
-    `	https://slack.com/api/conversations.list?token=${token}`
+    `https://slack.com/api/conversations.list?token=${token}`
   );
   const data = await res.json();
   return data.channels.find((channel) => channel.name === channelName);

@@ -81,7 +81,7 @@ const inspirationRandomizer = new ShuffleRandomizer(INSPIRATION_LIST);
 const emojiRandomizer = new ShuffleRandomizer(EMOJI_LIST);
 
 export default {
-  name: "wordle",
+  name: "daily-okr",
   install: async ({ rtm, token }) => {
     const dtCorporateChannelId = "G6Q982D7Y";
     cron.schedule(
