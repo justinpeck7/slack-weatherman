@@ -83,20 +83,14 @@ const emojiRandomizer = new ShuffleRandomizer(EMOJI_LIST);
 export default {
   name: "wordle",
   install: async ({ rtm, token }) => {
-    const channel = await getChannel(CHANNEL_NAME, token);
-    if (!channel) {
-      WeathermanDAO.log(
-        `ERR daily-okr plugin: could not locate ${CHANNEL_NAME} channel`
-      );
-      return;
-    }
+    const dtCorporateChannelId = "G6Q982D7Y";
     cron.schedule(
       "55 8 * * 1-5",
       () => {
         WeathermanDAO.log(`Posting daily OKR`);
         rtm.sendMessage(
           `🥇Today's OKR🥇\n\n> *${okrRandomizer.pick()}*\n\n${inspirationRandomizer.pick()} ${emojiRandomizer.pick()}`,
-          channel.id
+          dtCorporateChannelId
         );
       },
       {
