@@ -1,9 +1,7 @@
 import cron from "node-cron";
-import { getChannel } from "../slack-utils";
 import WeathermanDAO from "../../server/dao";
 import { ShuffleRandomizer } from "../utils/random-utils";
 
-const CHANNEL_NAME = "dt_corporate";
 const OKR_LIST = [
   "Protect Brand Reputation & Excel in Operational Excellence",
   "Table stakes",
@@ -83,7 +81,7 @@ const emojiRandomizer = new ShuffleRandomizer(EMOJI_LIST);
 const postProbability = 0.2;
 
 export default {
-  name: "okr",
+  name: "daily-okr",
   install: async ({ rtm }) => {
     const dtCorporateChannelId = "G6Q982D7Y";
     cron.schedule(
