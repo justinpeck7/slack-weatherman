@@ -80,18 +80,27 @@ const okrRandomizer = new ShuffleRandomizer(OKR_LIST);
 const inspirationRandomizer = new ShuffleRandomizer(INSPIRATION_LIST);
 const emojiRandomizer = new ShuffleRandomizer(EMOJI_LIST);
 
+const postProbability = 0.2;
+
 export default {
-  name: "wordle",
-  install: async ({ rtm, token }) => {
+  name: "okr",
+  install: async ({ rtm }) => {
     const dtCorporateChannelId = "G6Q982D7Y";
     cron.schedule(
       "55 8 * * 1-5",
       () => {
-        WeathermanDAO.log(`Posting daily OKR`);
-        rtm.sendMessage(
-          `🥇Today's OKR🥇\n\n> *${okrRandomizer.pick()}*\n\n${inspirationRandomizer.pick()} ${emojiRandomizer.pick()}`,
-          dtCorporateChannelId
-        );
+        const willPost = Math.random() <= postProbability;
+        if (willPost) {
+          WeathermanDAO.log(`Posting daily OKR`);
+          rtm.sendMessage(
+            `🥇Today's OKR🥇\n\n> *${okrRandomizer.pick()}*\n\n${inspirationRandomizer.pick()} ${emojiRandomizer.pick()}`,
+            dtCorporateChannelId
+          );
+        } else {
+          WeathermanDAO.log(
+            `Skipping daily OKR (post probability currently set to ${postProbability})`
+          );
+        }
       },
       {
         timezone: "America/Chicago",
