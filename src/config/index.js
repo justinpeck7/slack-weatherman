@@ -8,6 +8,6 @@ export const configStore = new Keyv({
   store: new KeyvSqlite(`sqlite://${path.join(DB_PATH, "config.db")}`),
 });
 
-export const keys = {
+export const KEYS = {
   OKR_POST_PROBABILITY: "OKR_POST_PROBABILITY",
 };

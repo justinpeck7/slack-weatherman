@@ -1,7 +1,7 @@
 import cron from "node-cron";
 import WeathermanDAO from "../../server/dao";
 import { ShuffleRandomizer } from "../utils/random-utils";
-import { configStore, keys } from "../../config";
+import { configStore, KEYS } from "../../config";
 
 const OKR_LIST = [
   "Protect Brand Reputation & Excel in Operational Excellence",
@@ -87,7 +87,7 @@ export default {
       "55 8 * * 1-5",
       async () => {
         const postProbability =
-          (await configStore.get(keys.OKR_POST_PROBABILITY)) || 0.3;
+          (await configStore.get(KEYS.OKR_POST_PROBABILITY)) || 0.3;
         const willPost = Math.random() <= postProbability;
         if (willPost) {
           WeathermanDAO.log(`Posting daily OKR`);
