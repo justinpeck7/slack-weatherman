@@ -82,10 +82,10 @@ const emojiRandomizer = new ShuffleRandomizer(EMOJI_LIST);
 export default {
   name: "daily-okr",
   install: async ({ rtm }) => {
-    const dtCorporateChannelId = "G6Q982D7Y";
     cron.schedule(
       "55 8 * * 1-5",
       async () => {
+        const postChannelId = configStore.get(KEYS.OKR_CHANNEL_ID);
         const postProbability =
           (await configStore.get(KEYS.OKR_POST_PROBABILITY)) || 0.3;
         const willPost = Math.random() <= postProbability;
@@ -93,7 +93,7 @@ export default {
           WeathermanDAO.log(`Posting daily OKR`);
           rtm.sendMessage(
             `🥇Today's OKR🥇\n\n> *${okrRandomizer.pick()}*\n\n${inspirationRandomizer.pick()} ${emojiRandomizer.pick()}`,
-            dtCorporateChannelId
+            postChannelId
           );
         } else {
           WeathermanDAO.log(

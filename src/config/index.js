@@ -10,4 +10,5 @@ export const configStore = new Keyv({
 
 export const KEYS = {
   OKR_POST_PROBABILITY: "OKR_POST_PROBABILITY",
+  OKR_CHANNEL_ID: "OKR_CHANNEL_ID",
 };
