@@ -1,7 +1,6 @@
 import cron from "node-cron";
 import WeathermanDAO from "../../server/dao";
 import { ShuffleRandomizer } from "../utils/random-utils";
-import { configStore, keys } from "../../config";
 
 const OKR_LIST = [
   "Protect Brand Reputation & Excel in Operational Excellence",
@@ -79,10 +78,10 @@ const okrRandomizer = new ShuffleRandomizer(OKR_LIST);
 const inspirationRandomizer = new ShuffleRandomizer(INSPIRATION_LIST);
 const emojiRandomizer = new ShuffleRandomizer(EMOJI_LIST);
 
-const postProbability = configStore.get(keys.OKR_POST_PROBABILITY) || 0.3;
+const postProbability = 0.2;
 
 export default {
-  name: "wordle",
+  name: "daily-okr",
   install: async ({ rtm }) => {
     const dtCorporateChannelId = "G6Q982D7Y";
     cron.schedule(
