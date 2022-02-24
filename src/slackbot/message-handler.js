@@ -1,8 +1,9 @@
 import define from "./commands/define";
 import weather from "./commands/weather";
+import config from "./commands/config";
 import WeathermanDAO from "../server/dao";
 
-const botFns = { define, weather };
+const botFns = { define, weather, config };
 
 const getCommand = (input) => {
   if (input[0] === "!") {

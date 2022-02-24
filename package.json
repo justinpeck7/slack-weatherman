@@ -15,11 +15,13 @@
   "license": "ISC",
   "homepage": "https://github.com/justinpeck7/slack-weatherman#readme",
   "dependencies": {
+    "@keyv/sqlite": "^3.0.0",
     "@slack/rtm-api": "^5.0.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
+    "keyv": "^4.1.1",
     "luxon": "^1.26.0",
     "node-cron": "^2.0.3",
     "node-fetch": "^3.1.1",
