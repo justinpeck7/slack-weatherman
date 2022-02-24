@@ -12,7 +12,7 @@ const config = async (input) => {
         .join("\n");
     }
 
-    if (normalizedKey === "CURRENT") {
+    if (normalizedKey === "CURRENT" || normalizedKey === "") {
       const kvPairs = await Promise.all(
         Object.keys(KEYS).map(
           async (k) => `\`${k}\`: \`${await configStore.get(k)}\``

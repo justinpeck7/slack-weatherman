@@ -2,10 +2,15 @@ const path = require("path");
 const Keyv = require("keyv");
 const KeyvSqlite = require("@keyv/sqlite");
 
-const DB_PATH = path.join(__dirname, "db");
+const DB_PATH = path.join(process.cwd(), "db");
+
+console.log("config db at", `sqlite://${path.join(DB_PATH, "weatherman.db")}`);
 
 export const configStore = new Keyv({
-  store: new KeyvSqlite(`sqlite://${path.join(DB_PATH, "config.db")}`),
+  store: new KeyvSqlite({
+    uri: `sqlite://${path.join(DB_PATH, "weatherman.db")}`,
+  }),
+  namespace: "config",
 });
 
 export const KEYS = {
