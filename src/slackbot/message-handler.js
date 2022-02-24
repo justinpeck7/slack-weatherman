@@ -12,6 +12,13 @@ const getCommand = (input) => {
 };
 
 const handleMessage = async (event, rtm) => {
+  if (!event || !event.message) {
+    WeathermanDAO.log(
+      `Hey, weird invalid message from slack: ${JSON.stringify(event)}`
+    );
+    return;
+  }
+
   const command = getCommand(event.text);
   if (command && botFns[command]) {
     const input = event.text.replace(`!${command}`, "").trim();
