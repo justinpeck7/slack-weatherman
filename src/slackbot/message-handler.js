@@ -1,6 +1,6 @@
-import define from "./commands/define";
-import weather from "./commands/weather";
-import WeathermanDAO from "../server/dao";
+import define from "./commands/define.js";
+import weather from "./commands/weather.js";
+import WeathermanDAO from "../server/dao.js";
 
 const botFns = { define, weather };
 

@@ -1,12 +1,11 @@
 import { RTMClient } from "@slack/rtm-api";
-import WeathermanDAO from "../server/dao";
-import handleMessage from "./message-handler";
-import installPlugins from "./install-plugins";
-
-const token = process.env.SLACK_TOKEN;
-const rtm = new RTMClient(token);
+import WeathermanDAO from "../server/dao.js";
+import handleMessage from "./message-handler.js";
+import installPlugins from "./install-plugins.js";
 
 export const startBot = async () => {
+  const token = process.env.SLACK_TOKEN;
+  const rtm = new RTMClient(token);
   try {
     await rtm.start();
     WeathermanDAO.log("Bot start");

@@ -1,6 +1,5 @@
-const dotenv = require("dotenv");
-dotenv.config();
+import dotenv from "dotenv";
+import { start } from "./src/index.js";
 
-/* eslint-disable no-undef */
-require = require("esm")(module);
-module.exports = require("./src/index.js");
+dotenv.config();
+start();

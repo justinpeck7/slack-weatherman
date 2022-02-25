@@ -1,5 +1,7 @@
-import { startBot } from "./slackbot/weatherman";
-import { startServer } from "./server/express";
+import { startBot } from "./slackbot/weatherman.js";
+import { startServer } from "./server/express.js";
 
-startServer();
-startBot();
+export const start = () => {
+  startServer();
+  startBot();
+};

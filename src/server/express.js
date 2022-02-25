@@ -1,8 +1,11 @@
 import express from "express";
-import logs from "./api/logs";
-import startScheduledTasks from "./scheduled-tasks";
+import logs from "./api/logs.js";
+import startScheduledTasks from "./scheduled-tasks/index.js";
 import cors from "cors";
-import path from "path";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export const startServer = () => {
   startScheduledTasks();

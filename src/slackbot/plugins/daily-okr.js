@@ -1,6 +1,6 @@
 import cron from "node-cron";
-import WeathermanDAO from "../../server/dao";
-import { ShuffleRandomizer } from "../utils/random-utils";
+import WeathermanDAO from "../../server/dao.js";
+import { ShuffleRandomizer } from "../utils/random-utils.js";
 
 const OKR_LIST = [
   "Protect Brand Reputation & Excel in Operational Excellence",

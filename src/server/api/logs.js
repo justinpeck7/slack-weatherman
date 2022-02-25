@@ -1,5 +1,5 @@
 import express from "express";
-import WeathermanDAO from "../dao";
+import WeathermanDAO from "../dao.js";
 
 const router = express.Router();
 

@@ -1,17 +1,11 @@
 {
   "env": {
-    "es6": true
-  },
-  "globals": {
-    "process": true,
-    "console": true,
-    "__dirname": true,
-    "require": true
+    "es2021": true,
+    "node": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2020,
     "sourceType": "module"
-  },
-  "rules": {}
+  }
 }
