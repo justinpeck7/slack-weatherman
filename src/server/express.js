@@ -16,7 +16,7 @@ export const startServer = () => {
   app.get("/logs", (req, res, next) => {
     res.sendFile(
       "index.html",
-      { root: path.resolve(process.cwd(), "/client/") },
+      { root: path.resolve(process.cwd(), "src", "client") },
       (err) => {
         if (err) {
           next(err);
