@@ -1,8 +1,9 @@
 import define from "./commands/define.js";
 import weather from "./commands/weather.js";
 import WeathermanDAO from "../server/dao.js";
+import config from "./commands/config.js";
 
-const botFns = { define, weather };
+const botFns = { define, weather, config };
 
 const getCommand = (input) => {
   if (input[0] === "!") {
@@ -12,6 +13,12 @@ const getCommand = (input) => {
 };
 
 const handleMessage = async (event, rtm) => {
+  if (!event || !event.text) {
+    WeathermanDAO.log(
+      `Hey, weird invalid text from slack: ${JSON.stringify(event)}`
+    );
+    return;
+  }
   const command = getCommand(event.text);
   if (command && botFns[command]) {
     const input = event.text.replace(`!${command}`, "").trim();
