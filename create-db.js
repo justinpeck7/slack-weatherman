@@ -1,30 +1,37 @@
-const path = require("path");
-const sqlite3 = require("sqlite3");
+import path from "path";
+import sqlite3 from "sqlite3";
+import fs from "fs";
 
-const DB_PATH = path.join(__dirname, "db");
+export const createDB = async () => {
+  return new Promise((resolve, reject) => {
+    const DB_PATH = path.join(process.cwd(), "db");
 
-const db = new sqlite3.Database(
-  path.join(`${DB_PATH}/weatherman.db`),
-  (err) => {
-    if (err) {
-      console.log("Could not connect to DB: ", err);
-    } else {
-      console.log("Connected to DB");
+    if (!fs.existsSync(DB_PATH)) {
+      fs.mkdirSync(DB_PATH);
     }
-  }
-);
 
-db.run(
-  `CREATE TABLE IF NOT EXISTS logs (
-    id INTEGER PRIMARY KEY,
-    timestamp TEXT,
-    event TEXT)`,
-  [],
-  (err) => {
-    if (err) {
-      console.log("Error creating logs table", err);
-    } else {
-      console.log("Logs table created");
-    }
-  }
-);
+    const db = new sqlite3.Database(
+      path.join(`${DB_PATH}/weatherman.db`),
+      (err) => {
+        if (err) {
+          reject(err);
+        }
+      }
+    );
+
+    db.run(
+      `CREATE TABLE IF NOT EXISTS logs (
+      id INTEGER PRIMARY KEY,
+      timestamp TEXT,
+      event TEXT)`,
+      [],
+      (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      }
+    );
+  });
+};

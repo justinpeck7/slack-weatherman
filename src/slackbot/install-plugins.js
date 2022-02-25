@@ -1,14 +1,11 @@
 import fs from "fs";
 import { getUsers } from "./slack-utils.js";
 import WeathermanDAO from "../server/dao.js";
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import path from "path";
 
 const installPlugins = async ({ rtm, token }) => {
   const users = await getUsers(token);
-  const pluginPath = path.join(__dirname, "plugins");
+  const pluginPath = path.join(process.cwd(), "src", "slackbot", "plugins");
   const files = fs.readdirSync(pluginPath);
 
   files.forEach(async (file) => {

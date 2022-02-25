@@ -1,0 +1,7 @@
+version: "3"
+services:
+  weatherman:
+    image: weatherman:latest
+    restart: unless-stopped
+    volumes:
+      - ./db/:/usr/src/app/db

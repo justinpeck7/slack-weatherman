@@ -2,10 +2,7 @@ import express from "express";
 import logs from "./api/logs.js";
 import startScheduledTasks from "./scheduled-tasks/index.js";
 import cors from "cors";
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import path from "path";
 
 export const startServer = () => {
   startScheduledTasks();
@@ -19,7 +16,7 @@ export const startServer = () => {
   app.get("/logs", (req, res, next) => {
     res.sendFile(
       "index.html",
-      { root: path.resolve(__dirname, "../client/") },
+      { root: path.resolve(process.cwd(), "/client/") },
       (err) => {
         if (err) {
           next(err);

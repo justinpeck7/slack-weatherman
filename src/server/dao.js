@@ -1,12 +1,9 @@
 import sqlite3 from "sqlite3";
-import path, { dirname } from "path";
-import { fileURLToPath } from "url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import path from "path";
 
 class WeathermanDAO {
   constructor() {
-    const DB_PATH = path.join(__dirname, "..", "..", "db", "weatherman.db");
+    const DB_PATH = path.join(process.cwd(), "db", "weatherman.db");
 
     this.db = new sqlite3.Database(DB_PATH, (err) => {
       if (err) {
