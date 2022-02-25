@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import WeathermanDAO from "../../server/dao";
+import WeathermanDAO from "../../server/dao.js";
 
 const zipRegex = /^\d{5}$/;
 const weatherDataApi = (zip) =>

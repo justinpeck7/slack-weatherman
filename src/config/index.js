@@ -1,6 +1,6 @@
-const path = require("path");
-const Keyv = require("keyv");
-const KeyvSqlite = require("@keyv/sqlite");
+import path from "path";
+import Keyv from "keyv";
+import KeyvSqlite from "@keyv/sqlite";
 
 const DB_PATH = path.join(process.cwd(), "db");
 

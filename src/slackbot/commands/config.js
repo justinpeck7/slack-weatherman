@@ -1,5 +1,5 @@
-import WeathermanDAO from "../../server/dao";
-import { configStore, KEYS } from "../../config";
+import WeathermanDAO from "../../server/dao.js";
+import { configStore, KEYS } from "../../config/index.js";
 
 const config = async (input) => {
   try {

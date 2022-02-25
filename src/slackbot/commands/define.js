@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import WeathermanDAO from "../../server/dao";
+import WeathermanDAO from "../../server/dao.js";
 
 const urbanDictApi = (searchTerm) =>
   `http://api.urbandictionary.com/v0/define?term=${searchTerm}`;

@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import { getIms } from "../slack-utils";
+import { getIms } from "../slack-utils.js";
 
 export default {
   name: "scout-pills-reminder",

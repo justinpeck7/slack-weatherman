@@ -1,7 +1,7 @@
 import cron from "node-cron";
-import { getChannel } from "../slack-utils";
-import birthdays from "../../../secrets/birthdays.json";
-import WeathermanDAO from "../../server/dao";
+import { getChannel } from "../slack-utils.js";
+import birthdays from "../../../secrets/birthdays.js";
+import WeathermanDAO from "../../server/dao.js";
 
 export default {
   name: "birthdays",
