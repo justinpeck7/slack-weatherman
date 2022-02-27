@@ -12,7 +12,7 @@ const getCommand = (input) => {
   return null;
 };
 
-const handleMessage = async (event, rtm) => {
+const handleMessage = async ({ event, webClient }) => {
   if (!event?.text) {
     return;
   }
@@ -22,7 +22,11 @@ const handleMessage = async (event, rtm) => {
     const response = await botFns[command](input);
     try {
       WeathermanDAO.log(`CMD: ${event.text} => ${response}`);
-      await rtm.sendMessage(response, event.channel);
+
+      await webClient.chat.postMessage({
+        text: response,
+        channel: event.channel,
+      });
     } catch (e) {
       WeathermanDAO.log(
         `ERR: ${command} command with input ${
