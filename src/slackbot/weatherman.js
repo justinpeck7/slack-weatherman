@@ -17,10 +17,10 @@ const logger = {
   error(...msgs) {
     WeathermanDAO.log("error: " + JSON.stringify(msgs));
   },
-  setLevel() {},
   getLevel() {
-    return LogLevel.INFO;
+    return LogLevel.WARN;
   },
+  setLevel() {},
   setName() {},
 };
 

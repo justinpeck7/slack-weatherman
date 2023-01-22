@@ -5,7 +5,9 @@
   "main": "weatherman.js",
   "scripts": {
     "start": "node index.js",
-    "create-db": "node create-db.js"
+    "create-db": "node create-db.js",
+    "build": "docker build -t weatherman .",
+    "daemon": "docker-compose up -t"
   },
   "repository": {
     "type": "git",
