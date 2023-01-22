@@ -4,6 +4,8 @@ import installPlugins from "./install-plugins.js";
 import { SocketModeClient } from "@slack/socket-mode";
 import { LogLevel, WebClient } from "@slack/web-api";
 
+function noop() {}
+
 const logger = {
   info(...msgs) {
     WeathermanDAO.log("info: " + JSON.stringify(msgs));
@@ -14,12 +16,12 @@ const logger = {
   error(...msgs) {
     WeathermanDAO.log("error: " + JSON.stringify(msgs));
   },
-  debug() {},
   getLevel() {
     return LogLevel.WARN;
   },
-  setLevel() {},
-  setName() {},
+  debug: noop,
+  setLevel: noop,
+  setName: noop,
 };
 
 const appToken = process.env.SLACK_APP_TOKEN;
@@ -33,6 +35,13 @@ const socketClient = new SocketModeClient({
   autoReconnectEnabled: true,
   logLevel: LogLevel.WARN,
 });
+
+let channels;
+webClient.conversations
+  .list({ types: "public_channel,private_channel", limit: 9999 })
+  .then((res) => {
+    channels = res.channels;
+  });
 
 socketClient.on("connecting", () => {
   WeathermanDAO.log("Connecting...");
@@ -64,7 +73,7 @@ socketClient.on("unable_to_socket_mode_start", (error) => {
 
 socketClient.on("message", async ({ event, ack }) => {
   await ack();
-  handleMessage({ event, webClient });
+  handleMessage({ event, webClient, channels });
 });
 
 export const startBot = async () => {
