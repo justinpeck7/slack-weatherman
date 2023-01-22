@@ -2,7 +2,7 @@ import WeathermanDAO from "../server/dao.js";
 import handleMessage from "./message-handler.js";
 import installPlugins from "./install-plugins.js";
 import { SocketModeClient } from "@slack/socket-mode";
-import { WebClient } from "@slack/web-api";
+import { LogLevel, WebClient } from "@slack/web-api";
 
 const logger = {
   debug(...msgs) {
@@ -18,6 +18,9 @@ const logger = {
     WeathermanDAO.log("error: " + JSON.stringify(msgs));
   },
   setLevel() {},
+  getLevel() {
+    return LogLevel.INFO;
+  },
   setName() {},
 };
 

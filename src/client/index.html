@@ -38,7 +38,7 @@
               )}</span>: <span class="event">${log.event}</span>`;
               parentDiv.appendChild(div);
             });
-            parentDiv.scrollTop = parentDiv.scrollHeight;
+            parentDiv.scrollIntoView(false);
           })
           .catch(console.log);
       };
@@ -51,31 +51,19 @@
         margin: 0;
         font-size: 10px;
         background-color: #3b3b3b;
-        color: #fff;
-      }
-      h1 {
-        color: #16c110;
       }
       .container {
         font-size: 1.6rem;
-        margin: 0 auto;
-        max-width: 100rem;
+        padding: 2rem;
       }
       #logs {
-        max-height: 75vh;
         overflow: scroll;
-        background: black;
-        padding: 1rem 2rem;
-        border-radius: 1rem;
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12),
-          0 4px 4px rgba(0, 0, 0, 0.12), 0 8px 8px rgba(0, 0, 0, 0.12),
-          0 16px 16px rgba(0, 0, 0, 0.12);
       }
       .log {
+        color: #1cff06;
         margin-bottom: 1rem;
       }
       .timestamp {
-        font-weight: bold;
         color: #a2a208;
       }
       .error {
@@ -85,7 +73,6 @@
   </head>
   <body>
     <div class="container">
-      <h1>Pi Logs</h1>
       <div id="logs"></div>
     </div>
   </body>
