@@ -85,7 +85,7 @@ export default {
     cron.schedule(
       "55 8 * * 1-5",
       async () => {
-        const postChannelId = configStore.get(KEYS.OKR_CHANNEL_ID);
+        const postChannelId = await configStore.get(KEYS.OKR_CHANNEL_ID);
         const postProbability =
           (await configStore.get(KEYS.OKR_POST_PROBABILITY)) || 0.3;
         const willPost = Math.random() <= postProbability;

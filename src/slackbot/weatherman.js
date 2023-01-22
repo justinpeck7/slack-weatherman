@@ -33,6 +33,7 @@ const socketClient = new SocketModeClient({
   appToken,
   logger,
   autoReconnectEnabled: true,
+  logLevel: LogLevel.WARN,
 });
 
 socketClient.on("connecting", () => {
