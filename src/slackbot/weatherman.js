@@ -5,9 +5,6 @@ import { SocketModeClient } from "@slack/socket-mode";
 import { LogLevel, WebClient } from "@slack/web-api";
 
 const logger = {
-  debug(...msgs) {
-    WeathermanDAO.log("debug: " + JSON.stringify(msgs));
-  },
   info(...msgs) {
     WeathermanDAO.log("info: " + JSON.stringify(msgs));
   },
@@ -17,6 +14,7 @@ const logger = {
   error(...msgs) {
     WeathermanDAO.log("error: " + JSON.stringify(msgs));
   },
+  debug() {},
   getLevel() {
     return LogLevel.WARN;
   },
