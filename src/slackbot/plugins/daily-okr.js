@@ -1,7 +1,7 @@
 import cron from 'node-cron';
+import { configStore, KEYS } from '../../config/index.js';
 import WeathermanDAO from '../../server/dao.js';
 import { ShuffleRandomizer } from '../utils/random-utils.js';
-import { configStore, KEYS } from '../../config/index.js';
 
 const OKR_LIST = [
   'Protect Brand Reputation & Excel in Operational Excellence',
@@ -90,7 +90,7 @@ export default {
           (await configStore.get(KEYS.OKR_POST_PROBABILITY)) || 0.3;
         const willPost = Math.random() <= postProbability;
         if (willPost) {
-          WeathermanDAO.log(`Posting daily OKR`);
+          WeathermanDAO.log(`Posting daily OKR, to ${postChannelId}`);
 
           await webClient.chat.postMessage({
             text: `🥇Today's OKR🥇\n\n> *${okrRandomizer.pick()}*\n\n${inspirationRandomizer.pick()} ${emojiRandomizer.pick()}`,
