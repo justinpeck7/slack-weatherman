@@ -7,9 +7,6 @@ import { LogLevel, WebClient } from "@slack/web-api";
 function noop() {}
 
 const logger = {
-  info(...msgs) {
-    WeathermanDAO.log("info: " + JSON.stringify(msgs));
-  },
   warn(...msgs) {
     WeathermanDAO.log("warn: " + JSON.stringify(msgs));
   },
@@ -19,6 +16,7 @@ const logger = {
   getLevel() {
     return LogLevel.WARN;
   },
+  info: noop,
   debug: noop,
   setLevel: noop,
   setName: noop,
