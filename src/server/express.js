@@ -21,7 +21,7 @@ export const startServer = () => {
       ...log,
       formattedTimestamp: formatTimestamp(log.timestamp),
     }));
-    res.render('index', { logs: formattedLogs.slice(0, 20) });
+    res.render('index', { logs: formattedLogs });
   });
 
   app.listen(8080);
