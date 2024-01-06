@@ -1,10 +1,10 @@
-import path from "path";
-import sqlite3 from "sqlite3";
-import fs from "fs";
+import path from 'path';
+import sqlite3 from 'sqlite3';
+import fs from 'fs';
 
 export const createDB = async () => {
   return new Promise((resolve, reject) => {
-    const DB_PATH = path.join(process.cwd(), "db");
+    const DB_PATH = path.join(process.cwd(), 'db');
 
     if (!fs.existsSync(DB_PATH)) {
       fs.mkdirSync(DB_PATH);
