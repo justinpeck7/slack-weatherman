@@ -38,7 +38,7 @@
               )}</span>: <span class="event">${log.event}</span>`;
               parentDiv.appendChild(div);
             });
-            parentDiv.scrollIntoView(false);
+            window.scrollTo(0, document.body.scrollHeight);
           })
           .catch(console.log);
       };
@@ -59,12 +59,12 @@
       #logs {
         overflow: scroll;
         margin-bottom: 10rem;
-        border-bottom: 1px solid #db8686;
+        border-bottom: 1px solid #ff8f2e;
       }
       .log {
         color: #1cff06;
-        padding: 0.5rem 0;
-        border-bottom: 1px solid #545454;
+        padding: 0.7rem 0;
+        border-bottom: 1px solid #a2a208;
         word-break: break-all;
       }
       .timestamp {
