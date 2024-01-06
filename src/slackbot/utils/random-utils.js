@@ -4,7 +4,7 @@
 export class ShuffleRandomizer {
   constructor(items) {
     if (items.length === 0) {
-      throw Error("cannot instantiate randomizer with empty list");
+      throw Error('cannot instantiate randomizer with empty list');
     }
 
     this.unpickedItems = [...items];

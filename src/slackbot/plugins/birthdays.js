@@ -1,21 +1,21 @@
-import cron from "node-cron";
-import birthdays from "../../../secrets/birthdays.js";
-import WeathermanDAO from "../../server/dao.js";
+import cron from 'node-cron';
+import birthdays from '../../../secrets/birthdays.js';
+import WeathermanDAO from '../../server/dao.js';
 
 export default {
-  name: "birthdays",
+  name: 'birthdays',
   install: async ({ webClient }) => {
     const res = await webClient.conversations.list();
-    const dtChat = res.channels.find((channel) => channel.name === "dt_chat");
+    const dtChat = res.channels.find((channel) => channel.name === 'dt_chat');
 
     if (!dtChat) {
       WeathermanDAO.log(
-        "ERR birthdays plugin: could not locate dt_chat channel"
+        'ERR birthdays plugin: could not locate dt_chat channel'
       );
       return;
     }
     cron.schedule(
-      "0 8 * * *",
+      '0 8 * * *',
       async () => {
         const date = new Date();
         const month = date.getMonth() + 1;
@@ -31,11 +31,11 @@ export default {
             channel: dtChat.id,
           });
         } else {
-          WeathermanDAO.log("No birthdays found");
+          WeathermanDAO.log('No birthdays found');
         }
       },
       {
-        timezone: "America/Chicago",
+        timezone: 'America/Chicago',
       }
     );
   },

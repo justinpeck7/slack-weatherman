@@ -1,9 +1,9 @@
-import fs from "fs";
-import WeathermanDAO from "../server/dao.js";
-import path from "path";
+import fs from 'fs';
+import WeathermanDAO from '../server/dao.js';
+import path from 'path';
 
 const installPlugins = async ({ socketClient, webClient }) => {
-  const pluginPath = path.join(process.cwd(), "src", "slackbot", "plugins");
+  const pluginPath = path.join(process.cwd(), 'src', 'slackbot', 'plugins');
   const files = fs.readdirSync(pluginPath);
 
   files.forEach(async (file) => {

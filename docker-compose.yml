@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 services:
   weatherman:
     image: weatherman:latest
@@ -6,4 +6,4 @@ services:
     volumes:
       - ./db/:/usr/src/app/db
     ports:
-      - "8080:8080"
+      - '8080:8080'

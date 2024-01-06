@@ -1,7 +1,7 @@
 const say = async ({ event, input, channels, webClient }) => {
-  const [channelName, ...restInput] = input.split(":");
+  const [channelName, ...restInput] = input.split(':');
   const channel = channels.find(({ name }) => name === channelName)?.id;
-  const text = restInput?.join(":")?.trim();
+  const text = restInput?.join(':')?.trim();
 
   if (!channel) {
     await webClient.chat.postMessage({

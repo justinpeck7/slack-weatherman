@@ -1,17 +1,17 @@
-import WeathermanDAO from "../server/dao.js";
-import handleMessage from "./message-handler.js";
-import installPlugins from "./install-plugins.js";
-import { SocketModeClient } from "@slack/socket-mode";
-import { LogLevel, WebClient } from "@slack/web-api";
+import WeathermanDAO from '../server/dao.js';
+import handleMessage from './message-handler.js';
+import installPlugins from './install-plugins.js';
+import { SocketModeClient } from '@slack/socket-mode';
+import { LogLevel, WebClient } from '@slack/web-api';
 
 function noop() {}
 
 const logger = {
   warn(...msgs) {
-    WeathermanDAO.log("warn: " + JSON.stringify(msgs));
+    WeathermanDAO.log('warn: ' + JSON.stringify(msgs));
   },
   error(...msgs) {
-    WeathermanDAO.log("error: " + JSON.stringify(msgs));
+    WeathermanDAO.log('error: ' + JSON.stringify(msgs));
   },
   getLevel() {
     return LogLevel.WARN;
@@ -36,40 +36,40 @@ const socketClient = new SocketModeClient({
 
 let channels;
 webClient.conversations
-  .list({ types: "public_channel,private_channel", limit: 9999 })
+  .list({ types: 'public_channel,private_channel', limit: 9999 })
   .then((res) => {
     channels = res.channels;
   });
 
-socketClient.on("connecting", () => {
-  WeathermanDAO.log("Connecting...");
+socketClient.on('connecting', () => {
+  WeathermanDAO.log('Connecting...');
 });
 
-socketClient.on("connected", () => {
-  WeathermanDAO.log("Weatherman Connected");
+socketClient.on('connected', () => {
+  WeathermanDAO.log('Weatherman Connected');
 });
 
-socketClient.on("disconnecting", () => {
-  WeathermanDAO.log("Disconnecting");
+socketClient.on('disconnecting', () => {
+  WeathermanDAO.log('Disconnecting');
 });
 
-socketClient.on("disconnected", () => {
-  WeathermanDAO.log("Disconnected");
+socketClient.on('disconnected', () => {
+  WeathermanDAO.log('Disconnected');
 });
 
-socketClient.on("reconnecting", () => {
-  WeathermanDAO.log("Reconnecting...");
+socketClient.on('reconnecting', () => {
+  WeathermanDAO.log('Reconnecting...');
 });
 
-socketClient.on("error", (error) => {
+socketClient.on('error', (error) => {
   WeathermanDAO.log(`Error: ${JSON.stringify(error)}`);
 });
 
-socketClient.on("unable_to_socket_mode_start", (error) => {
+socketClient.on('unable_to_socket_mode_start', (error) => {
   WeathermanDAO.log(`unable_to_socket_mode_start: ${JSON.stringify(error)}`);
 });
 
-socketClient.on("message", async ({ event, ack }) => {
+socketClient.on('message', async ({ event, ack }) => {
   await ack();
   handleMessage({ event, webClient, channels });
 });

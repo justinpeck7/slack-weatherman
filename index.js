@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
-import { createDB } from "./create-db.js";
+import dotenv from 'dotenv';
+import { createDB } from './create-db.js';
 
 dotenv.config();
 
@@ -8,5 +8,5 @@ dotenv.config();
   // so we need to make sure that DB exists before the app
   // imports resolve
   await createDB();
-  await import("./src/index.js");
+  await import('./src/index.js');
 })();

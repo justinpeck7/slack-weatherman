@@ -1,15 +1,15 @@
-import sqlite3 from "sqlite3";
-import path from "path";
+import sqlite3 from 'sqlite3';
+import path from 'path';
 
 class WeathermanDAO {
   constructor() {
-    const DB_PATH = path.join(process.cwd(), "db", "weatherman.db");
+    const DB_PATH = path.join(process.cwd(), 'db', 'weatherman.db');
 
     this.db = new sqlite3.Database(DB_PATH, (err) => {
       if (err) {
         throw new Error(err);
       } else {
-        console.log("Connected to DB");
+        console.log('Connected to DB');
       }
     });
   }
@@ -58,7 +58,7 @@ class WeathermanDAO {
    * @returns {Array} all logs
    */
   async getAllLogs() {
-    return await this.runQueryAll("SELECT * from logs ORDER BY timestamp ASC");
+    return await this.runQueryAll('SELECT * from logs ORDER BY timestamp ASC');
   }
 
   /**
@@ -66,7 +66,7 @@ class WeathermanDAO {
    * @param {String} event - The event to log
    */
   log(event) {
-    if (typeof event !== "string") {
+    if (typeof event !== 'string') {
       throw new Error(
         `Error logging value: ${event}. You may only log strings events`
       );

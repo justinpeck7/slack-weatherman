@@ -1,24 +1,24 @@
-import WeathermanDAO from "../../server/dao.js";
-import { configStore, KEYS } from "../../config/index.js";
+import WeathermanDAO from '../../server/dao.js';
+import { configStore, KEYS } from '../../config/index.js';
 
 const config = async (input) => {
   try {
-    const [key, ...value] = input.split(" ");
+    const [key, ...value] = input.split(' ');
     const normalizedKey = key.trim().toUpperCase();
 
-    if (normalizedKey === "HELP" || normalizedKey === "KEYS") {
+    if (normalizedKey === 'HELP' || normalizedKey === 'KEYS') {
       return Object.keys(KEYS)
         .map((k) => `\`${k}\``)
-        .join("\n");
+        .join('\n');
     }
 
-    if (normalizedKey === "CURRENT" || normalizedKey === "") {
+    if (normalizedKey === 'CURRENT' || normalizedKey === '') {
       const kvPairs = await Promise.all(
         Object.keys(KEYS).map(
           async (k) => `\`${k}\`: \`${await configStore.get(k)}\``
         )
       );
-      return kvPairs.join("\n");
+      return kvPairs.join('\n');
     }
 
     if (KEYS[normalizedKey]) {

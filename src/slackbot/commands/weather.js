@@ -1,5 +1,5 @@
-import fetch from "node-fetch";
-import WeathermanDAO from "../../server/dao.js";
+import fetch from 'node-fetch';
+import WeathermanDAO from '../../server/dao.js';
 
 const zipRegex = /^\d{5}$/;
 const weatherDataApi = (zip) =>
@@ -12,7 +12,7 @@ const getReplyText = (data) => {
   const showFeelsLike = Math.abs(temp - feelsLike) > 10;
 
   return `${temp} degrees, ${description} in ${data.name} right now.${
-    showFeelsLike ? ` Feels like ${feelsLike}` : ""
+    showFeelsLike ? ` Feels like ${feelsLike}` : ''
   }`;
 };
 
@@ -27,8 +27,8 @@ const weather = async (input) => {
       if (e.response && e.response.data) {
         reason = e.response.data.message;
       }
-      if (reason === "city not found") {
-        return "City not found";
+      if (reason === 'city not found') {
+        return 'City not found';
       }
 
       WeathermanDAO.log(
@@ -36,7 +36,7 @@ const weather = async (input) => {
           e
         )}`
       );
-      return "Weather API Error";
+      return 'Weather API Error';
     }
   }
 };
