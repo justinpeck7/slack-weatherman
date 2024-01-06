@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Pi Logs</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100&display=swap"
+      rel="stylesheet"
+    />
+    <script type="text/javascript">
+      window.onload = () => {
+        setTimeout(() => {
+          window.scrollTo(0, document.body.scrollHeight);
+        }, 0);
+      };
+    </script>
+    <style>
+      html,
+      body {
+        font-family: 'Roboto Mono', monospace;
+        padding: 0;
+        margin: 0;
+        font-size: 10px;
+        background-color: #3b3b3b;
+      }
+      .container {
+        font-size: 1.6rem;
+        padding: 2rem;
+      }
+      #logs {
+        overflow: scroll;
+        margin-bottom: 10rem;
+        border-bottom: 1px solid #ff8f2e;
+      }
+      .log {
+        color: #1cff06;
+        padding: 0.7rem 0;
+        border-bottom: 1px solid #a2a208;
+        word-break: break-all;
+      }
+      .timestamp {
+        color: #a2a208;
+      }
+      .error {
+        color: rgb(185, 76, 57);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="logs">
+        <% if (logs && logs.length) { %>
+        <% logs.forEach(log => { %>
+        <div class="log">
+          <span class="timestamp"><%= log.formattedTimestamp %></span>
+          <span class="event"><%= log.event %></span>
+        </div>
+        <% }) %>
+        <% } else { %>
+        <div class="error">No logs found</div>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>

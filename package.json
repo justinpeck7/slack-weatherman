@@ -22,8 +22,9 @@
     "@slack/web-api": "^6.8.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.9",
     "esm": "^3.2.25",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "keyv": "^4.1.1",
     "luxon": "^1.26.0",
     "node-cron": "^2.0.3",
@@ -32,7 +33,9 @@
   },
   "devDependencies": {
     "eslint": "^8.9.0",
-    "prettier": "^3.1.1"
+    "prettier": "^3.1.1",
+    "prettier-plugin-ejs": "^0.0.19",
+    "prettier-plugin-organize-imports": "^3.2.4"
   },
   "type": "module"
 }
