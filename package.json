@@ -7,7 +7,8 @@
     "start": "node index.js",
     "create-db": "node create-db.js",
     "build": "docker build -t weatherman .",
-    "daemon": "docker-compose up -d"
+    "compose:daemon": "docker-compose up -d",
+    "compose:kill": "docker-compose down --rmi all"
   },
   "repository": {
     "type": "git",
