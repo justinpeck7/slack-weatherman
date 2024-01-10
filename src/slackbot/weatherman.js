@@ -1,8 +1,8 @@
-import WeathermanDAO from '../server/dao.js';
-import handleMessage from './message-handler.js';
-import installPlugins from './install-plugins.js';
 import { SocketModeClient } from '@slack/socket-mode';
 import { LogLevel, WebClient } from '@slack/web-api';
+import WeathermanDAO from '../server/dao.js';
+import installPlugins from './install-plugins.js';
+import handleMessage from './message-handler.js';
 
 function noop() {}
 

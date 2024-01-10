@@ -87,8 +87,8 @@ export default {
       async () => {
         const postChannelId = await configStore.get(KEYS.OKR_CHANNEL_ID);
         const postProbability =
-          (await configStore.get(KEYS.OKR_POST_PROBABILITY)) || 0.3;
-        const willPost = Math.random() <= postProbability;
+          (await configStore.get(KEYS.OKR_POST_PROBABILITY)) || 0.1;
+        const willPost = Math.random() <= parseFloat(postProbability);
         if (willPost) {
           WeathermanDAO.log(`Posting daily OKR, to ${postChannelId}`);
 

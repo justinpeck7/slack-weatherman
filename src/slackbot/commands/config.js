@@ -1,5 +1,5 @@
-import WeathermanDAO from '../../server/dao.js';
 import { configStore, KEYS } from '../../config/index.js';
+import WeathermanDAO from '../../server/dao.js';
 
 const config = async (input) => {
   try {
@@ -22,9 +22,10 @@ const config = async (input) => {
     }
 
     if (KEYS[normalizedKey]) {
-      await configStore.set(normalizedKey, value);
-      WeathermanDAO.log(`CONFIG: Set [${normalizedKey}] to [${value}]`);
-      return `Set \`${normalizedKey}\` to \`${value}\``;
+      const valToSet = value[0];
+      await configStore.set(normalizedKey, valToSet);
+      WeathermanDAO.log(`CONFIG: Set [${normalizedKey}] to [${valToSet}]`);
+      return `Set \`${normalizedKey}\` to \`${valToSet}\``;
     } else {
       return `Cannot set invalid key \`${normalizedKey}\``;
     }
