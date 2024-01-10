@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "create-db": "node create-db.js",
-    "build": "docker build -t weatherman .",
-    "compose:daemon": "docker-compose up -d",
-    "compose:kill": "docker-compose down"
+    "docker:build": "docker build -t weatherman .",
+    "docker:daemon": "docker-compose up -d",
+    "docker:kill": "docker-compose down"
   },
   "repository": {
     "type": "git",
