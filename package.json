@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "slack robit",
   "scripts": {
-    "start": "ts-node --compiler-options '{\"module\": \"commonjs\"}' src/index.ts",
-    "create-db": "ts-node --compiler-options '{\"module\": \"commonjs\"}' src/config/create-db.ts",
+    "start": "ts-node --transpileOnly --compiler-options '{\"module\": \"commonjs\"}' src/index.ts",
+    "create-db": "ts-node --transpileOnly --compiler-options '{\"module\": \"commonjs\"}' src/config/create-db.ts",
     "build": "docker build -t weatherman .",
     "daemon": "docker-compose up -d",
     "daemon:kill": "docker-compose down"
