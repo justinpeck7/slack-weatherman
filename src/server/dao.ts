@@ -67,7 +67,7 @@ class DAO {
    * @returns {Array} all logs
    */
   async getAllLogs(): Promise<LogRow[]> {
-    return await this.runQueryAll('SELECT * from logs ORDER BY timestamp ASC');
+    return await this.runQueryAll('SELECT * from app_logs ORDER BY timestamp ASC');
   }
 
   /**
@@ -75,7 +75,7 @@ class DAO {
    * @param {String} event - The event to log
    */
   logEvent(event: string) {
-    this.run('INSERT INTO logs(event, timestamp) VALUES($event, $timestamp)', {
+    this.run('INSERT INTO app_logs(event, timestamp) VALUES($event, $timestamp)', {
       $event: event,
       $timestamp: new Date().toISOString(),
     });

@@ -4,15 +4,14 @@
     "target": "esnext",
     "lib": ["esnext"],
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
-    "noEmit": false,
+    "noEmit": true,
     "esModuleInterop": true,
     "strict": true,
     "noImplicitAny": true,
     "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
-    "outDir": "dist"
+    "skipLibCheck": true
   },
   "include": ["*.ts", "/**/*.ts"],
   "exclude": ["node_modules"]

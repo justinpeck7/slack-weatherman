@@ -1,4 +1,3 @@
-/* import fetch from 'node-fetch'; */
 import DAO from '../../server/dao';
 import { BotCommandFn } from '../types';
 

@@ -1,7 +1,7 @@
 import { WebClient } from '@slack/web-api';
 import { Channel } from '@slack/web-api/dist/types/response/ConversationsInfoResponse';
 import { CronJob } from 'cron';
-import birthdays from '../../../secrets/birthdays.json';
+import birthdays from '../../secrets/birthdays.json';
 import DAO from '../../server/dao';
 
 export default {
