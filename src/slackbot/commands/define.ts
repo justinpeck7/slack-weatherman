@@ -1,14 +1,18 @@
-import fetch from 'node-fetch';
-import WeathermanDAO from '../../server/dao.js';
+import DAO from '../../server/dao';
+import { BotCommandFn } from '../types';
 
-const urbanDictApi = (searchTerm) =>
+type UrbanDictResponse = {
+  list: [{ definition: string }];
+};
+
+const urbanDictApi = (searchTerm: string) =>
   `http://api.urbandictionary.com/v0/define?term=${searchTerm}`;
 
-const define = async (input) => {
+const define: BotCommandFn = async (input) => {
   try {
     const path = urbanDictApi(input.replace(/\s/g, '+'));
     const res = await fetch(path);
-    const json = await res.json();
+    const json = (await res.json()) as UrbanDictResponse;
     if (json.list && json.list.length) {
       let { definition } = json.list[0];
       definition = definition.replace(/\[/g, '').replace(/]/g, '');
@@ -16,7 +20,7 @@ const define = async (input) => {
     }
     return 'No.';
   } catch (e) {
-    WeathermanDAO.log(
+    DAO.logEvent(
       `ERR: UrbanDict API with input "${input}" -- ${JSON.stringify(e)}`
     );
     return 'Dictionary API Error';

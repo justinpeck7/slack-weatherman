@@ -1,11 +1,10 @@
 import express from 'express';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import WeathermanDAO from './dao.js';
-import startScheduledTasks from './scheduled-tasks/index.js';
-import { formatTimestamp } from './utils.js';
+import path from 'path';
+import DAO from './dao';
+import startScheduledTasks from './scheduled-tasks/index';
+import { formatTimestamp } from './utils';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+console.log(path.join(__dirname, '../views'));
 
 export const startServer = () => {
   startScheduledTasks();
@@ -15,8 +14,8 @@ export const startServer = () => {
   app.set('view engine', 'ejs');
   app.set('views', path.join(__dirname, '../views'));
 
-  app.get('/logs', async (_, res) => {
-    const logs = await WeathermanDAO.getAllLogs();
+  app.get('/logs', async (_, res: any) => {
+    const logs = await DAO.getAllLogs();
     const formattedLogs = logs.map((log) => ({
       ...log,
       formattedTimestamp: formatTimestamp(log.timestamp),

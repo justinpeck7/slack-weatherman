@@ -7,4 +7,4 @@ RUN npm install --omit=dev
 
 COPY . .
 
-CMD [ "node", "index.js" ]
+CMD ts-node --compiler-options '{\"module\": \"commonjs\"}' index.ts

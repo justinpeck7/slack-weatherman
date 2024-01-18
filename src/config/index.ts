@@ -1,6 +1,6 @@
-import path from 'path';
-import Keyv from 'keyv';
 import KeyvSqlite from '@keyv/sqlite';
+import Keyv from 'keyv';
+import path from 'path';
 
 const DB_PATH = path.join(process.cwd(), 'db');
 

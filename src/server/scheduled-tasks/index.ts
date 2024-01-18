@@ -1,4 +1,4 @@
-import { clearMonthlyLogs } from './clear-logs.js';
+import { clearMonthlyLogs } from './clear-logs';
 
 const startScheduledTasks = () => {
   clearMonthlyLogs();

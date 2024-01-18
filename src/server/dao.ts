@@ -1,13 +1,21 @@
-import sqlite3 from 'sqlite3';
 import path from 'path';
+import sqlite3, { Database } from 'sqlite3';
 
-class WeathermanDAO {
+type LogRow = {
+  id: number;
+  timestamp: string;
+  event: string;
+};
+
+class DAO {
+  db: Database;
+
   constructor() {
     const DB_PATH = path.join(process.cwd(), 'db', 'weatherman.db');
 
     this.db = new sqlite3.Database(DB_PATH, (err) => {
       if (err) {
-        throw new Error(err);
+        throw err;
       } else {
         console.log('Connected to DB');
       }
@@ -20,12 +28,12 @@ class WeathermanDAO {
    * @param {*} params - array of params to pass to the SQL
    * @returns
    */
-  runQueryAll(sql, params = []) {
+  runQueryAll(sql: string, params: string[] = []): Promise<LogRow[]> {
     return new Promise((resolve, reject) => {
-      this.db.all(sql, params, (err, rows) => {
+      this.db.all(sql, params, (err, rows: LogRow[]) => {
         if (err) {
-          this.log(`[dao.runQueryAll] Error running sql: ${sql}`);
-          this.log(err);
+          this.logEvent(`[dao.runQueryAll] Error running sql: ${sql}`);
+          this.logEvent(err.message);
           reject(err);
         } else {
           resolve(rows);
@@ -39,12 +47,13 @@ class WeathermanDAO {
    * @param {String} sql - the query
    * @param {Array} params - array of params to pass to the SQL
    */
-  run(sql, params = []) {
+  run(sql: string, params: Record<string, any> = {}): Promise<{ id: number }> {
+    const log = this.logEvent;
     return new Promise((resolve, reject) => {
       this.db.run(sql, params, function (err) {
         if (err) {
-          this.log(`[dao.run] Error running sql: ${sql}`);
-          this.log(err);
+          log(`[dao.run] Error running sql: ${sql}`);
+          log(err.message);
           reject(err);
         } else {
           resolve({ id: this.lastID });
@@ -57,7 +66,7 @@ class WeathermanDAO {
    * Get all of the logged events
    * @returns {Array} all logs
    */
-  async getAllLogs() {
+  async getAllLogs(): Promise<LogRow[]> {
     return await this.runQueryAll('SELECT * from logs ORDER BY timestamp ASC');
   }
 
@@ -65,16 +74,25 @@ class WeathermanDAO {
    * Log an event to the DB
    * @param {String} event - The event to log
    */
-  log(event) {
-    if (typeof event !== 'string') {
-      throw new Error(
-        `Error logging value: ${event}. You may only log strings events`
-      );
-    }
-    const sql = `INSERT INTO logs(event, timestamp) VALUES(?, ?)`;
-    const params = [event, new Date().toISOString()];
-    this.run(sql, params);
+  logEvent(event: string) {
+    this.run('INSERT INTO logs(event, timestamp) VALUES($event, $timestamp)', {
+      $event: event,
+      $timestamp: new Date().toISOString(),
+    });
+  }
+
+  /**
+   * Log network events. Too spammy to add them to the primary log table
+   */
+  logNetworkEvent(event: string) {
+    this.run(
+      'INSERT INTO network_logs(event, timestamp) VALUES($event, $timestamp)',
+      {
+        $event: event,
+        $timestamp: new Date().toISOString(),
+      }
+    );
   }
 }
 
-export default new WeathermanDAO();
+export default new DAO();

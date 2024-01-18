@@ -2,7 +2,10 @@
  * Accepts an array of items and randomly picks them without repeating until all have been picked.
  */
 export class ShuffleRandomizer {
-  constructor(items) {
+  unpickedItems: string[];
+  pickedItems: string[];
+
+  constructor(items: string[]) {
     if (items.length === 0) {
       throw Error('cannot instantiate randomizer with empty list');
     }

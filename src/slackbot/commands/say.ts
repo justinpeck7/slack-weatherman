@@ -1,14 +1,14 @@
-const say = async ({ event, input, channels, webClient }) => {
+const say = async ({ event, input, channels, webClient }: any) => {
   const [channelName, ...restInput] = input.split(':');
-  const channel = channels.find(({ name }) => name === channelName)?.id;
-  const text = restInput?.join(':')?.trim();
+  const channel = channels.find(({ name }: any) => name === channelName)?.id;
+  const text = restInput.at(0)?.trim();
 
   if (!channel) {
     await webClient.chat.postMessage({
       text: `Could not find channel: ${channelName}`,
       channel: event.channel,
     });
-    return;
+    return `Can't find that channel`;
   }
 
   try {
@@ -16,11 +16,13 @@ const say = async ({ event, input, channels, webClient }) => {
       text,
       channel,
     });
+    return 'Done';
   } catch (e) {
     await webClient.chat.postMessage({
-      text: `Hit some kind of snag: ${e.message}`,
+      text: `Hit some kind of snag: ${(e as Error).message}`,
       channel: event.channel,
     });
+    return `Hit some kind of snag: ${(e as Error).message}`;
   }
 };
 

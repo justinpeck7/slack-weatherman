@@ -1,11 +1,21 @@
-import fetch from 'node-fetch';
-import WeathermanDAO from '../../server/dao.js';
+/* import fetch from 'node-fetch'; */
+import DAO from '../../server/dao';
+import { BotCommandFn } from '../types';
+
+type OpenWeathermapResponse = {
+  name: string;
+  weather: [{ description: string }];
+  main: {
+    temp: number;
+    feels_like: number;
+  };
+};
 
 const zipRegex = /^\d{5}$/;
-const weatherDataApi = (zip) =>
+const weatherDataApi = (zip: string) =>
   `http://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=${process.env.WEATHER_APPID}&units=imperial`;
 
-const getReplyText = (data) => {
+const getReplyText = (data: OpenWeathermapResponse) => {
   const description = data.weather[0].description;
   const temp = Math.floor(data.main.temp);
   const feelsLike = Math.floor(data.main.feels_like);
@@ -16,13 +26,13 @@ const getReplyText = (data) => {
   }`;
 };
 
-const weather = async (input) => {
+const weather: BotCommandFn = async (input) => {
   if (zipRegex.test(input)) {
     try {
       const res = await fetch(weatherDataApi(input));
-      const json = await res.json();
+      const json = (await res.json()) as OpenWeathermapResponse;
       return getReplyText(json);
-    } catch (e) {
+    } catch (e: any) {
       let reason;
       if (e.response && e.response.data) {
         reason = e.response.data.message;
@@ -31,13 +41,15 @@ const weather = async (input) => {
         return 'City not found';
       }
 
-      WeathermanDAO.log(
+      DAO.logEvent(
         `ERR: Weather API ${reason} with input "${input}" -- ${JSON.stringify(
           e
         )}`
       );
       return 'Weather API Error';
     }
+  } else {
+    return 'Is that a real zipcode?';
   }
 };
 
