@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import sqlite3 from 'sqlite3';
 
-export const createDB = async () => {
+const createDB = async () => {
   return new Promise<void>((resolve, reject) => {
     const DB_PATH = path.join(process.cwd(), 'db');
 
@@ -64,3 +64,7 @@ export const createDB = async () => {
     );
   });
 };
+
+(async () => {
+  await createDB();
+})();
