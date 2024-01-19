@@ -1,9 +1,9 @@
 import { Logger, SocketModeClient } from '@slack/socket-mode';
 import { LogLevel, WebClient } from '@slack/web-api';
 import { Channel } from '@slack/web-api/dist/types/response/ChannelsInfoResponse.js';
+import { logNetworkEvent } from '../db/logs';
 import installPlugins from './install-plugins';
 import handleMessage from './message-handler';
-import { logNetworkEvent } from '../db/logs';
 
 function noop() {}
 
@@ -47,6 +47,7 @@ socketClient.on('connecting', () => {
 });
 
 socketClient.on('connected', () => {
+  console.log('Weatherman Connected');
   logNetworkEvent('Weatherman Connected');
 });
 
