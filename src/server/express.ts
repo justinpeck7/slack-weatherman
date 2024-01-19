@@ -1,8 +1,8 @@
 import express from 'express';
 import path from 'path';
-import startScheduledTasks from './scheduled-tasks/index';
-import { formatTimestamp } from './utils';
 import { getAllLogs } from '../db/logs';
+import { startScheduledTasks } from './scheduled-tasks';
+import { formatTimestamp } from './utils';
 
 export const startServer = () => {
   startScheduledTasks();

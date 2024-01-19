@@ -1,7 +1,7 @@
 import { CronJob } from 'cron';
-import { run } from '../../db';
+import { run } from '../db';
 
-export const clearMonthlyLogs = () => {
+const clearMonthlyLogs = () => {
   new CronJob(
     '0 0 * * *',
     () => {
@@ -14,4 +14,8 @@ export const clearMonthlyLogs = () => {
     true,
     'America/Chicago'
   );
+};
+
+export const startScheduledTasks = () => {
+  clearMonthlyLogs();
 };
