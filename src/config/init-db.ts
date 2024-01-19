@@ -63,4 +63,5 @@ const createDB = async () => {
 
 (async () => {
   await createDB();
+  console.log('Weatherman DB ready');
 })();
