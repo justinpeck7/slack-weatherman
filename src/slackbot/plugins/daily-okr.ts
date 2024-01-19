@@ -1,7 +1,7 @@
 import { WebClient } from '@slack/web-api';
 import { CronJob } from 'cron';
 import { configStore, KEYS } from '../../config';
-import DAO from '../../server/dao';
+import { logEvent } from '../../db/logs';
 import { ShuffleRandomizer } from '../utils/random-utils';
 
 const OKR_LIST = [
@@ -91,14 +91,14 @@ export default {
           (await configStore.get(KEYS.OKR_POST_PROBABILITY)) || 0.1;
         const willPost = Math.random() <= parseFloat(postProbability);
         if (willPost) {
-          DAO.logEvent(`Posting daily OKR, to ${postChannelId}`);
+          logEvent(`Posting daily OKR, to ${postChannelId}`);
 
           await webClient.chat.postMessage({
             text: `🥇Today's OKR🥇\n\n> *${okrRandomizer.pick()}*\n\n${inspirationRandomizer.pick()} ${emojiRandomizer.pick()}`,
             channel: postChannelId,
           });
         } else {
-          DAO.logEvent(
+          logEvent(
             `Skipping daily OKR (post probability currently set to ${postProbability})`
           );
         }

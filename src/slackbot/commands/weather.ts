@@ -1,4 +1,4 @@
-import DAO from '../../server/dao';
+import { logEvent } from '../../db/logs';
 import { BotCommandFn } from '../types';
 
 type OpenWeathermapResponse = {
@@ -40,7 +40,7 @@ const weather: BotCommandFn = async (input) => {
         return 'City not found';
       }
 
-      DAO.logEvent(
+      logEvent(
         `ERR: Weather API ${reason} with input "${input}" -- ${JSON.stringify(
           e
         )}`

@@ -1,6 +1,6 @@
 import { WebClient } from '@slack/web-api';
 import { Channel } from '@slack/web-api/dist/types/response/ChannelsInfoResponse.js';
-import DAO from '../server/dao';
+import { logEvent } from '../db/logs';
 import config from './commands/config';
 import define from './commands/define';
 import say from './commands/say';
@@ -46,14 +46,14 @@ const handleMessage = async ({
   if (botFns[command]) {
     const response = await botFns[command](input);
     try {
-      DAO.logEvent(`CMD: ${event.text} => ${response}`);
+      logEvent(`CMD: ${event.text} => ${response}`);
 
       await webClient.chat.postMessage({
         text: response,
         channel: event.channel,
       });
     } catch (e) {
-      DAO.logEvent(
+      logEvent(
         `ERR: ${command} command with input ${
           event.text
         }, error: ${JSON.stringify(e)}`

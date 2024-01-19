@@ -2,7 +2,7 @@ import { SocketModeClient } from '@slack/socket-mode';
 import { WebClient } from '@slack/web-api';
 import fs from 'fs';
 import path from 'path';
-import DAO from '../server/dao';
+import { logEvent } from '../db/logs';
 
 const installPlugins = async ({
   socketClient,
@@ -18,9 +18,9 @@ const installPlugins = async ({
     const plugin = await import(`${pluginPath}/${file}`);
     try {
       plugin.default.install({ socketClient, webClient });
-      DAO.logEvent(`Installed plugin: ${plugin.default.name}`);
+      logEvent(`Installed plugin: ${plugin.default.name}`);
     } catch (e) {
-      DAO.logEvent(
+      logEvent(
         `ERR: installing ${plugin.default.name} plugin -- ${JSON.stringify(e)}`
       );
     }

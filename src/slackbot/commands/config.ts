@@ -1,5 +1,5 @@
 import { configStore, KEYS } from '../../config';
-import DAO from '../../server/dao';
+import { logEvent } from '../../db/logs';
 import { BotCommandFn } from '../types';
 
 const config: BotCommandFn = async (input) => {
@@ -25,13 +25,13 @@ const config: BotCommandFn = async (input) => {
     if (KEYS[normalizedKey as keyof typeof KEYS]) {
       const valToSet = value[0];
       await configStore.set(normalizedKey, valToSet);
-      DAO.logEvent(`CONFIG: Set [${normalizedKey}] to [${valToSet}]`);
+      logEvent(`CONFIG: Set [${normalizedKey}] to [${valToSet}]`);
       return `Set \`${normalizedKey}\` to \`${valToSet}\``;
     } else {
       return `Cannot set invalid key \`${normalizedKey}\``;
     }
   } catch (e) {
-    DAO.logEvent(
+    logEvent(
       `ERR: could not set config from "${input}" -- ${JSON.stringify(e)}`
     );
     return `Could not set config from "${input}" -- ${JSON.stringify(e)}`;

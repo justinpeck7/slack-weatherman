@@ -1,23 +1,19 @@
 import fs from 'fs';
 import path from 'path';
 import sqlite3 from 'sqlite3';
+import { DB_DIR, DB_PATH } from './constants';
 
 const createDB = async () => {
   return new Promise<void>((resolve, reject) => {
-    const DB_PATH = path.join(process.cwd(), 'db');
-
-    if (!fs.existsSync(DB_PATH)) {
-      fs.mkdirSync(DB_PATH);
+    if (!fs.existsSync(DB_DIR)) {
+      fs.mkdirSync(DB_DIR);
     }
 
-    const db = new sqlite3.Database(
-      path.join(`${DB_PATH}/weatherman.db`),
-      (err) => {
-        if (err) {
-          reject(err);
-        }
+    const db = new sqlite3.Database(path.join(`${DB_PATH}`), (err) => {
+      if (err) {
+        reject(err);
       }
-    );
+    });
 
     db.run(
       `CREATE TABLE IF NOT EXISTS app_logs (

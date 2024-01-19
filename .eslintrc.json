@@ -4,10 +4,18 @@
     "es2021": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module",
     "project": "./tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/unbound-method": "error",
+    "@typescript-eslint/no-explicit-any": "warn"
   }
 }

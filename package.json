@@ -4,7 +4,7 @@
   "description": "slack robit",
   "scripts": {
     "start": "ts-node --transpileOnly --compiler-options '{\"module\": \"commonjs\"}' src/index.ts",
-    "create-db": "ts-node --transpileOnly --compiler-options '{\"module\": \"commonjs\"}' src/config/create-db.ts",
+    "init-db": "ts-node --transpileOnly --compiler-options '{\"module\": \"commonjs\"}' src/config/init-db.ts",
     "build": "docker build -t weatherman .",
     "daemon": "docker-compose up -d",
     "daemon:kill": "docker-compose down"
@@ -34,6 +34,7 @@
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.19.0",
     "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.1.1",
     "prettier-plugin-ejs": "^0.0.19",
     "prettier-plugin-organize-imports": "^3.2.4",

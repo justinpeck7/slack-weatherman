@@ -1,4 +1,4 @@
-import DAO from '../../server/dao';
+import { logEvent } from '../../db/logs';
 import { BotCommandFn } from '../types';
 
 type UrbanDictResponse = {
@@ -20,7 +20,7 @@ const define: BotCommandFn = async (input) => {
     }
     return 'No.';
   } catch (e) {
-    DAO.logEvent(
+    logEvent(
       `ERR: UrbanDict API with input "${input}" -- ${JSON.stringify(e)}`
     );
     return 'Dictionary API Error';

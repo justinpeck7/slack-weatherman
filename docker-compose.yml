@@ -4,6 +4,6 @@ services:
     image: weatherman:latest
     restart: unless-stopped
     volumes:
-      - ./db/:/usr/src/app/db
+      - ./database/:/usr/src/app/database
     ports:
       - '8080:8080'

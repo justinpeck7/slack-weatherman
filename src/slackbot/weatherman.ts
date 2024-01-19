@@ -1,18 +1,18 @@
 import { Logger, SocketModeClient } from '@slack/socket-mode';
 import { LogLevel, WebClient } from '@slack/web-api';
 import { Channel } from '@slack/web-api/dist/types/response/ChannelsInfoResponse.js';
-import DAO from '../server/dao';
 import installPlugins from './install-plugins';
 import handleMessage from './message-handler';
+import { logNetworkEvent } from '../db/logs';
 
 function noop() {}
 
 const logger: Logger = {
   warn(...msgs) {
-    DAO.logNetworkEvent(`Socket Warn: ${JSON.stringify(msgs)}`);
+    logNetworkEvent(`Socket Warn: ${JSON.stringify(msgs)}`);
   },
   error(...msgs) {
-    DAO.logNetworkEvent(`Socket Error: ${JSON.stringify(msgs)}`);
+    logNetworkEvent(`Socket Error: ${JSON.stringify(msgs)}`);
   },
   getLevel() {
     return LogLevel.WARN;
@@ -43,31 +43,31 @@ webClient.conversations
   });
 
 socketClient.on('connecting', () => {
-  DAO.logNetworkEvent('Connecting...');
+  logNetworkEvent('Connecting...');
 });
 
 socketClient.on('connected', () => {
-  DAO.logNetworkEvent('Weatherman Connected');
+  logNetworkEvent('Weatherman Connected');
 });
 
 socketClient.on('disconnecting', () => {
-  DAO.logNetworkEvent('Disconnecting');
+  logNetworkEvent('Disconnecting');
 });
 
 socketClient.on('disconnected', () => {
-  DAO.logNetworkEvent('Disconnected');
+  logNetworkEvent('Disconnected');
 });
 
 socketClient.on('reconnecting', () => {
-  DAO.logNetworkEvent('Reconnecting...');
+  logNetworkEvent('Reconnecting...');
 });
 
 socketClient.on('error', (error) => {
-  DAO.logNetworkEvent(`Error: ${JSON.stringify(error)}`);
+  logNetworkEvent(`Error: ${JSON.stringify(error)}`);
 });
 
 socketClient.on('unable_to_socket_mode_start', (error) => {
-  DAO.logNetworkEvent(`unable_to_socket_mode_start: ${JSON.stringify(error)}`);
+  logNetworkEvent(`unable_to_socket_mode_start: ${JSON.stringify(error)}`);
 });
 
 socketClient.on('message', async ({ event, ack }) => {
