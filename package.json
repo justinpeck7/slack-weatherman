@@ -2,13 +2,12 @@
   "name": "slack-weatherman",
   "version": "1.0.0",
   "description": "slack robit",
-  "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "create-db": "node create-db.js",
-    "docker:build": "docker build -t weatherman .",
-    "docker:daemon": "docker-compose up -d",
-    "docker:kill": "docker-compose down"
+    "start": "ts-node --transpileOnly src/index.ts",
+    "init-db": "ts-node --transpileOnly src/config/init-db.ts",
+    "build": "docker build -t weatherman .",
+    "daemon": "docker-compose up -d",
+    "daemon:kill": "docker-compose down"
   },
   "repository": {
     "type": "git",
@@ -18,24 +17,27 @@
   "license": "ISC",
   "homepage": "https://github.com/justinpeck7/slack-weatherman#readme",
   "dependencies": {
-    "@keyv/sqlite": "^3.0.0",
-    "@slack/socket-mode": "^1.3.2",
-    "@slack/web-api": "^6.8.0",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
+    "@keyv/sqlite": "^3.6.6",
+    "@slack/socket-mode": "^1.3.3",
+    "@slack/web-api": "^7.0.0",
+    "cron": "^3.1.6",
+    "dotenv": "^8.6.0",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "keyv": "^4.1.1",
-    "luxon": "^1.26.0",
-    "node-cron": "^2.0.3",
-    "node-fetch": "^3.1.1",
-    "sqlite3": "^5.1.7"
+    "keyv": "^4.5.4",
+    "sqlite3": "^5.1.7",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
-    "eslint": "^8.9.0",
+    "@types/express": "^4.17.21",
+    "@types/sqlite3": "^3.1.11",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
     "prettier": "^3.1.1",
     "prettier-plugin-ejs": "^0.0.19",
-    "prettier-plugin-organize-imports": "^3.2.4"
-  },
-  "type": "module"
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "typescript": "^5.3.3"
+  }
 }

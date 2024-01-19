@@ -1,14 +1,10 @@
-import path from 'path';
-import Keyv from 'keyv';
 import KeyvSqlite from '@keyv/sqlite';
-
-const DB_PATH = path.join(process.cwd(), 'db');
-
-console.log('config db at', `sqlite://${path.join(DB_PATH, 'weatherman.db')}`);
+import Keyv from 'keyv';
+import { DB_PATH } from './constants';
 
 export const configStore = new Keyv({
   store: new KeyvSqlite({
-    uri: `sqlite://${path.join(DB_PATH, 'weatherman.db')}`,
+    uri: `sqlite://${DB_PATH}`,
   }),
   namespace: 'config',
 });

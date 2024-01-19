@@ -1,7 +1,8 @@
-import cron from 'node-cron';
-import { configStore, KEYS } from '../../config/index.js';
-import WeathermanDAO from '../../server/dao.js';
-import { ShuffleRandomizer } from '../utils/random-utils.js';
+import { WebClient } from '@slack/web-api';
+import { CronJob } from 'cron';
+import { configStore, KEYS } from '../../config';
+import { logEvent } from '../../db/logs';
+import { ShuffleRandomizer } from '../utils/random-utils';
 
 const OKR_LIST = [
   'Protect Brand Reputation & Excel in Operational Excellence',
@@ -81,8 +82,8 @@ const emojiRandomizer = new ShuffleRandomizer(EMOJI_LIST);
 
 export default {
   name: 'daily-okr',
-  install: async ({ webClient }) => {
-    cron.schedule(
+  install: async ({ webClient }: { webClient: WebClient }) => {
+    new CronJob(
       '55 8 * * 1-5',
       async () => {
         const postChannelId = await configStore.get(KEYS.OKR_CHANNEL_ID);
@@ -90,21 +91,21 @@ export default {
           (await configStore.get(KEYS.OKR_POST_PROBABILITY)) || 0.1;
         const willPost = Math.random() <= parseFloat(postProbability);
         if (willPost) {
-          WeathermanDAO.log(`Posting daily OKR, to ${postChannelId}`);
+          logEvent(`Posting daily OKR, to ${postChannelId}`);
 
           await webClient.chat.postMessage({
             text: `🥇Today's OKR🥇\n\n> *${okrRandomizer.pick()}*\n\n${inspirationRandomizer.pick()} ${emojiRandomizer.pick()}`,
             channel: postChannelId,
           });
         } else {
-          WeathermanDAO.log(
+          logEvent(
             `Skipping daily OKR (post probability currently set to ${postProbability})`
           );
         }
       },
-      {
-        timezone: 'America/Chicago',
-      }
+      null,
+      true,
+      'America/Chicago'
     );
   },
 };

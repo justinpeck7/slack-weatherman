@@ -1,7 +1,8 @@
-import { configStore, KEYS } from '../../config/index.js';
-import WeathermanDAO from '../../server/dao.js';
+import { configStore, KEYS } from '../../config';
+import { logEvent } from '../../db/logs';
+import { BotCommandFn } from '../types';
 
-const config = async (input) => {
+const config: BotCommandFn = async (input) => {
   try {
     const [key, ...value] = input.split(' ');
     const normalizedKey = key.trim().toUpperCase();
@@ -21,16 +22,16 @@ const config = async (input) => {
       return kvPairs.join('\n');
     }
 
-    if (KEYS[normalizedKey]) {
+    if (KEYS[normalizedKey as keyof typeof KEYS]) {
       const valToSet = value[0];
       await configStore.set(normalizedKey, valToSet);
-      WeathermanDAO.log(`CONFIG: Set [${normalizedKey}] to [${valToSet}]`);
+      logEvent(`CONFIG: Set [${normalizedKey}] to [${valToSet}]`);
       return `Set \`${normalizedKey}\` to \`${valToSet}\``;
     } else {
       return `Cannot set invalid key \`${normalizedKey}\``;
     }
   } catch (e) {
-    WeathermanDAO.log(
+    logEvent(
       `ERR: could not set config from "${input}" -- ${JSON.stringify(e)}`
     );
     return `Could not set config from "${input}" -- ${JSON.stringify(e)}`;
