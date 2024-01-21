@@ -72,7 +72,7 @@ export const getConfigVal = async (itemKey: string): Promise<string> => {
     `SELECT value FROM app_config WHERE item_key = $itemKey`,
     { $itemKey: itemKey }
   );
-  return result.value;
+  return result?.value ?? '';
 };
 
 /**
