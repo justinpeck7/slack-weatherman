@@ -1,6 +1,6 @@
 import { WebClient } from '@slack/web-api';
 import { Channel } from '@slack/web-api/dist/types/response/ChannelsInfoResponse.js';
-import { logEvent } from '../db/logs';
+import { logEvent } from '../db/fns';
 import config from './commands/config';
 import define from './commands/define';
 import say from './commands/say';

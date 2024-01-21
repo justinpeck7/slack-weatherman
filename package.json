@@ -4,7 +4,7 @@
   "description": "slack robit",
   "scripts": {
     "start": "ts-node --transpileOnly src/index.ts",
-    "init-db": "ts-node --transpileOnly src/config/init-db.ts",
+    "db-init": "ts-node --transpileOnly src/db/db-init.ts",
     "build": "docker build -t weatherman .",
     "daemon": "docker-compose up -d",
     "daemon:kill": "docker-compose down"
@@ -17,14 +17,12 @@
   "license": "ISC",
   "homepage": "https://github.com/justinpeck7/slack-weatherman#readme",
   "dependencies": {
-    "@keyv/sqlite": "^3.6.6",
     "@slack/socket-mode": "^1.3.3",
     "@slack/web-api": "^7.0.0",
     "cron": "^3.1.6",
     "dotenv": "^8.6.0",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
-    "keyv": "^4.5.4",
     "sqlite3": "^5.1.7",
     "ts-node": "^10.9.2"
   },

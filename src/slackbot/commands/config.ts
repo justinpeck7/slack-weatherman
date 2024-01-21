@@ -1,5 +1,5 @@
-import { configStore, KEYS } from '../../config';
-import { logEvent } from '../../db/logs';
+import { getConfigVal, logEvent, setConfigVal } from '../../db/fns';
+import { KEYS } from '../plugins/daily-okr';
 import { BotCommandFn } from '../types';
 
 const config: BotCommandFn = async (input) => {
@@ -16,7 +16,7 @@ const config: BotCommandFn = async (input) => {
     if (normalizedKey === 'CURRENT' || normalizedKey === '') {
       const kvPairs = await Promise.all(
         Object.keys(KEYS).map(
-          async (k) => `\`${k}\`: \`${await configStore.get(k)}\``
+          async (k) => `\`${k}\`: \`${await getConfigVal(k)}\``
         )
       );
       return kvPairs.join('\n');
@@ -24,7 +24,7 @@ const config: BotCommandFn = async (input) => {
 
     if (KEYS[normalizedKey as keyof typeof KEYS]) {
       const valToSet = value[0];
-      await configStore.set(normalizedKey, valToSet);
+      await setConfigVal(normalizedKey, valToSet);
       logEvent(`CONFIG: Set [${normalizedKey}] to [${valToSet}]`);
       return `Set \`${normalizedKey}\` to \`${valToSet}\``;
     } else {

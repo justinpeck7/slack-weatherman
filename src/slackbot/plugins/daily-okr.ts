@@ -1,8 +1,12 @@
 import { WebClient } from '@slack/web-api';
 import { CronJob } from 'cron';
-import { configStore, KEYS } from '../../config';
-import { logEvent } from '../../db/logs';
+import { getConfigVal, logEvent } from '../../db/fns';
 import { ShuffleRandomizer } from '../utils/random-utils';
+
+export const KEYS = {
+  OKR_POST_PROBABILITY: 'OKR_POST_PROBABILITY',
+  OKR_CHANNEL_ID: 'OKR_CHANNEL_ID',
+};
 
 const OKR_LIST = [
   'Protect Brand Reputation & Excel in Operational Excellence',
@@ -86,9 +90,9 @@ export default {
     new CronJob(
       '55 8 * * 1-5',
       async () => {
-        const postChannelId = await configStore.get(KEYS.OKR_CHANNEL_ID);
+        const postChannelId = await getConfigVal(KEYS.OKR_CHANNEL_ID);
         const postProbability =
-          (await configStore.get(KEYS.OKR_POST_PROBABILITY)) || 0.1;
+          (await getConfigVal(KEYS.OKR_POST_PROBABILITY)) || '0.1';
         const willPost = Math.random() <= parseFloat(postProbability);
         if (willPost) {
           logEvent(`Posting daily OKR, to ${postChannelId}`);

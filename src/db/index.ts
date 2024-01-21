@@ -1,5 +1,5 @@
 import sqlite3 from 'sqlite3';
-import { DB_PATH } from '../config/constants';
+import { DB_PATH } from './paths';
 
 const db = new sqlite3.Database(DB_PATH, (err) => {
   if (err) {
@@ -12,7 +12,7 @@ const db = new sqlite3.Database(DB_PATH, (err) => {
 /**
  * Runs a query. Returns no result rows.
  * @param {String} sql - the query
- * @param {Array} params - array of params to pass to the SQL
+ * @param {Object} params - params object to pass to the SQL
  */
 export const run = (
   sql: string,
@@ -32,7 +32,7 @@ export const run = (
 /**
  * Runs a query and returns all result rows
  * @param {*} sql - the query
- * @param {*} params - array of params to pass to the SQL
+ * @param {*} params - params object to pass to the SQL
  * @returns
  */
 export const queryAll = <T>(
@@ -45,6 +45,27 @@ export const queryAll = <T>(
         reject(err);
       } else {
         resolve(rows);
+      }
+    });
+  });
+};
+
+/**
+ * Runs a query and returns the first result row
+ * @param {*} sql - the query
+ * @param {*} params - array of params to pass to the SQL
+ * @returns
+ */
+export const queryOne = <T>(
+  sql: string,
+  params: Record<string, string | number> = {}
+): Promise<T> => {
+  return new Promise((resolve, reject) => {
+    db.get(sql, params, (err, row: T) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row);
       }
     });
   });

@@ -43,6 +43,9 @@
       .error {
         color: rgb(185, 76, 57);
       }
+      .config {
+        color: #fff;
+      }
     </style>
   </head>
   <body>
@@ -58,6 +61,10 @@
         <% } else { %>
         <div class="error">No logs found</div>
         <% } %>
+      </div>
+      <div class="config">
+        <h3>App Config</h3>
+        <%- JSON.stringify(appConfig) %>
       </div>
     </div>
   </body>

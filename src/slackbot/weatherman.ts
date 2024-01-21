@@ -1,7 +1,7 @@
 import { Logger, SocketModeClient } from '@slack/socket-mode';
 import { LogLevel, WebClient } from '@slack/web-api';
 import { Channel } from '@slack/web-api/dist/types/response/ChannelsInfoResponse.js';
-import { logNetworkEvent } from '../db/logs';
+import { logNetworkEvent } from '../db/fns';
 import installPlugins from './install-plugins';
 import handleMessage from './message-handler';
 

@@ -1,4 +1,4 @@
-import { logEvent } from '../../db/logs';
+import { logEvent } from '../../db/fns';
 import { BotCommandFn } from '../types';
 
 type OpenWeathermapResponse = {

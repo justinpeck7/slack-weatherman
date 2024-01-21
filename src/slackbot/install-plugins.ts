@@ -2,7 +2,7 @@ import { SocketModeClient } from '@slack/socket-mode';
 import { WebClient } from '@slack/web-api';
 import fs from 'fs';
 import path from 'path';
-import { logEvent } from '../db/logs';
+import { logEvent } from '../db/fns';
 
 const installPlugins = async ({
   socketClient,
