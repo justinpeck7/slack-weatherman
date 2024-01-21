@@ -31,7 +31,6 @@ const config: BotCommandFn = async (input) => {
       return `Cannot set invalid key \`${normalizedKey}\``;
     }
   } catch (e) {
-    console.log(e);
     logEvent(
       `ERR: could not set config from "${input}" -- ${JSON.stringify(e)}`
     );
