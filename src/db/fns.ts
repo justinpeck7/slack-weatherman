@@ -1,9 +1,16 @@
+import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 import { queryAll, queryOne, run } from '.';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export type LogRow = {
   id: number;
   timestamp: string;
   event: string;
+  central_time_formatted: string;
 };
 
 /**
@@ -11,20 +18,34 @@ export type LogRow = {
  * @param {String} event - The event to log
  */
 export const logEvent = (event: string) => {
-  run('INSERT INTO app_logs(event, timestamp) VALUES($event, $timestamp)', {
-    $event: event,
-    $timestamp: new Date().toISOString(),
-  });
+  run(
+    `INSERT INTO app_logs(event, timestamp, central_time_formatted)
+    VALUES($event, $timestamp, $central_time_formatted)`,
+    {
+      $event: event,
+      $timestamp: new Date().toISOString(),
+      $central_time_formatted: dayjs()
+        .tz('America/Chicago')
+        .format('MM-DD-YYYY hh:mmA'),
+    }
+  );
 };
 
 /**
  * Log network events. Too spammy to add them to the primary log table
  */
 export const logNetworkEvent = (event: string) => {
-  run('INSERT INTO network_logs(event, timestamp) VALUES($event, $timestamp)', {
-    $event: event,
-    $timestamp: new Date().toISOString(),
-  });
+  run(
+    `INSERT INTO network_logs(event, timestamp, central_time_formatted)
+    VALUES($event, $timestamp, $central_time_formatted)`,
+    {
+      $event: event,
+      $timestamp: new Date().toISOString(),
+      $central_time_formatted: dayjs()
+        .tz('America/Chicago')
+        .format('MM-DD-YYYY hh:mmA'),
+    }
+  );
 };
 
 /**
@@ -33,7 +54,8 @@ export const logNetworkEvent = (event: string) => {
  */
 export const getMonthlyAppLogs = async (): Promise<LogRow[]> => {
   return await queryAll<LogRow>(
-    `SELECT * from app_logs
+    `SELECT central_time_formatted, event
+    FROM app_logs
     WHERE timestamp >= datetime('now', '-1 month')
     ORDER BY timestamp ASC`
   );
@@ -45,7 +67,8 @@ export const getMonthlyAppLogs = async (): Promise<LogRow[]> => {
  */
 export const getMonthlyNetworkLogs = async (): Promise<LogRow[]> => {
   return await queryAll<LogRow>(
-    `SELECT * from network_logs
+    `SELECT central_time_formatted, event
+    FROM network_logs
     WHERE timestamp >= datetime('now', '-1 month')
     ORDER BY timestamp ASC`
   );
@@ -78,6 +101,8 @@ export const getConfigVal = async (itemKey: string): Promise<string> => {
 /**
  * Return all app config rows
  */
-export const getAllConfigVals = async (): Promise<Record<string, string>[]> => {
+export const getAllAppConfigVals = async (): Promise<
+  Record<string, string>[]
+> => {
   return await queryAll<Record<string, string>>('SELECT * FROM app_config');
 };

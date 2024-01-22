@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Pi Logs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <script type="text/javascript">
+      function scrollToBottom(id) {
+        const div = document.getElementById(id);
+        div.scrollTop = div.scrollHeight;
+      }
+
+      window.onload = () => {
+        setTimeout(() => {
+          scrollToBottom('app_logs');
+          scrollToBottom('network_logs');
+        }, 0);
+      };
+    </script>
+    <style>
+      html {
+        font-family: 'PT Mono', monospace;
+        font-size: 10px;
+      }
+      body {
+        padding: 0;
+        margin: 0;
+        font-size: 1.6rem;
+        background-color: #2b2b2b;
+        color: #ffbf1e;
+        padding: 0 2rem;
+      }
+      h1 {
+        font-size: 4rem;
+      }
+      .logs-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+      }
+      .logs {
+        overflow: scroll;
+        border: 1px solid #ffbf1e;
+        border-radius: 0.4rem;
+        padding: 1rem;
+        height: 60rem;
+      }
+      .logs h2 {
+        border-bottom: 1px solid #ffbf1e;
+        padding-bottom: 1rem;
+      }
+      .log {
+        padding: 0.7rem 0;
+        word-break: break-all;
+      }
+      .timestamp {
+        color: #8f6600;
+      }
+      .error {
+        color: rgb(185, 76, 57);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Weatherman</h1>
+    <div class="config">
+      App Config:
+      <%- JSON.stringify(appConfig) %>
+    </div>
+    <div class="logs-container">
+      <div>
+        <h2>App Logs</h2>
+        <div class="logs" id="app_logs">
+          <% if (appLogs && appLogs.length) { %>
+          <% appLogs.forEach(log => { %>
+          <div class="log">
+            <span class="timestamp"><%= log.central_time_formatted %></span>
+            <span class="event"><%= log.event %></span>
+          </div>
+          <% }) %>
+          <% } else { %>
+          <div class="error">No logs found</div>
+          <% } %>
+        </div>
+      </div>
+      <div>
+        <h2>Network Logs</h2>
+        <div class="logs" id="network_logs">
+          <% if (networkLogs && networkLogs.length) { %>
+          <% networkLogs.forEach(log => { %>
+          <div class="log">
+            <span class="timestamp"><%= log.central_time_formatted %></span>
+            <span class="event"><%= log.event %></span>
+          </div>
+          <% }) %>
+          <% } else { %>
+          <div class="error">No logs found</div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

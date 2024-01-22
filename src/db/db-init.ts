@@ -11,12 +11,14 @@ const tableInitSql = `
 CREATE TABLE IF NOT EXISTS app_logs (
   id INTEGER PRIMARY KEY,
   timestamp TEXT,
+  central_time_formatted TEXT,
   event TEXT
 );
 
 CREATE TABLE IF NOT EXISTS network_logs (
   id INTEGER PRIMARY KEY,
   timestamp TEXT,
+  central_time_formatted TEXT,
   event TEXT
 );
 

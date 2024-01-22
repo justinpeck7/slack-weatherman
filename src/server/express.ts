@@ -1,8 +1,11 @@
 import express from 'express';
 import path from 'path';
-import { getAllConfigVals, getMonthlyAppLogs } from '../db/fns';
+import {
+  getAllAppConfigVals,
+  getMonthlyAppLogs,
+  getMonthlyNetworkLogs,
+} from '../db/fns';
 import { startScheduledTasks } from './scheduled-tasks';
-import { formatTimestamp } from './utils';
 
 export const startServer = () => {
   startScheduledTasks();
@@ -12,14 +15,13 @@ export const startServer = () => {
   app.set('view engine', 'ejs');
   app.set('views', path.join(__dirname, '../views'));
 
-  app.get('/dashboard', async (_, res: any) => {
-    const logs = await getMonthlyAppLogs();
-    const formattedLogs = logs.map((log) => ({
-      ...log,
-      formattedTimestamp: formatTimestamp(log.timestamp),
-    }));
-    const appConfig = await getAllConfigVals();
-    res.render('index', { logs: formattedLogs, appConfig });
+  app.get('/dashboard', async (_, res) => {
+    const [appLogs, networkLogs, appConfig] = await Promise.all([
+      getMonthlyAppLogs(),
+      getMonthlyNetworkLogs(),
+      getAllAppConfigVals(),
+    ]);
+    res.render('dashboard', { appLogs, networkLogs, appConfig });
   });
 
   app.listen(8080);
