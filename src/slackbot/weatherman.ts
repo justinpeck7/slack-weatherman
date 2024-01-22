@@ -1,6 +1,7 @@
 import { Logger, SocketModeClient } from '@slack/socket-mode';
 import { LogLevel, WebClient } from '@slack/web-api';
 import { Channel } from '@slack/web-api/dist/types/response/ChannelsInfoResponse.js';
+import { Member } from '@slack/web-api/dist/types/response/UsersListResponse';
 import { logNetworkEvent } from '../db/fns';
 import installPlugins from './install-plugins';
 import handleMessage from './message-handler';
@@ -36,11 +37,17 @@ const socketClient = new SocketModeClient({
 });
 
 let channels: Channel[];
+let users: Member[];
+
 webClient.conversations
   .list({ types: 'public_channel,private_channel', limit: 9999 })
   .then((res) => {
     channels = res.channels || [];
   });
+
+webClient.users.list({}).then((res) => {
+  users = res.members || [];
+});
 
 socketClient.on('connecting', () => {
   logNetworkEvent('Connecting...');
@@ -73,7 +80,7 @@ socketClient.on('unable_to_socket_mode_start', (error) => {
 
 socketClient.on('message', async ({ event, ack }) => {
   await ack();
-  handleMessage({ event, webClient, channels });
+  handleMessage({ event, webClient, channels, users });
 });
 
 export const startBot = async () => {
