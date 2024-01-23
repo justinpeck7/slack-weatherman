@@ -13,15 +13,14 @@
         const div = document.getElementById(id);
         div.scrollTop = div.scrollHeight;
       }
-
       window.onload = () => {
-        setTimeout(() => {
-          scrollToBottom('app_logs');
-          scrollToBottom('network_logs');
-        }, 0);
+        /* Scroll to the bottom of logs */
+        scrollToBottom('app_logs');
+        scrollToBottom('network_logs');
       };
     </script>
     <style>
+      /* Containers */
       html {
         font-family: 'PT Mono', monospace;
         font-size: 10px;
@@ -34,13 +33,10 @@
         color: #ffbf1e;
         padding: 0 2rem;
       }
-      h1 {
-        font-size: 4rem;
-      }
-      .logs-container {
+      .grid-container {
         display: grid;
         grid-template-columns: 2fr 1fr;
-        gap: 4rem;
+        gap: 2rem;
       }
       .logs {
         font-size: 1.3rem;
@@ -48,34 +44,58 @@
         border: 1px solid #ffbf1e;
         border-radius: 0.4rem;
         padding: 1rem;
-        height: 60rem;
+        max-height: 60rem;
       }
-      .logs h2 {
-        border-bottom: 1px solid #ffbf1e;
+      .network_logs {
+        max-height: 40rem;
+      }
+      .right-col {
+        display: grid;
+        grid-template-rows: 2fr 1fr;
+        gap: 2rem;
+        height: 68rem;
+      }
+      .app-config {
+        border-radius: 0.4rem;
+        padding: 1rem;
+        background-color: #1c1c1c;
+        font-size: 1.3rem;
+        color: #f07167;
+        max-height: 12rem;
+        overflow: scroll;
+      }
+      .config-line {
+        padding: 0.7rem 0;
+      }
+
+      /* Elements */
+      h1 {
+        font-size: 4rem;
+      }
+      h2 {
+        margin: 0;
         padding-bottom: 1rem;
       }
       .log {
         display: flex;
         padding: 0.7rem 0;
-        word-break: break-all;
       }
       .timestamp {
         flex-shrink: 0;
         margin-right: 1rem;
         color: #8f6600;
       }
+      .config-val {
+        color: #ffbf1e;
+      }
       .error {
-        color: rgb(185, 76, 57);
+        color: #f07167;
       }
     </style>
   </head>
   <body>
     <h1>Weatherman</h1>
-    <div class="config">
-      App Config:
-      <%- JSON.stringify(appConfig) %>
-    </div>
-    <div class="logs-container">
+    <div class="grid-container">
       <div>
         <h2>App Logs</h2>
         <div class="logs" id="app_logs">
@@ -91,19 +111,32 @@
           <% } %>
         </div>
       </div>
-      <div>
-        <h2>Network Logs</h2>
-        <div class="logs" id="network_logs">
-          <% if (networkLogs && networkLogs.length) { %>
-          <% networkLogs.forEach(log => { %>
-          <div class="log">
-            <span class="timestamp"><%= log.central_time_formatted %></span>
-            <span class="event"><%= log.event %></span>
+      <div class="right-col">
+        <div>
+          <h2>Network Logs</h2>
+          <div class="logs network_logs" id="network_logs">
+            <% if (networkLogs && networkLogs.length) { %>
+            <% networkLogs.forEach(log => { %>
+            <div class="log">
+              <span class="timestamp"><%= log.central_time_formatted %></span>
+              <span class="event"><%= log.event %></span>
+            </div>
+            <% }) %>
+            <% } else { %>
+            <div class="error">No logs found</div>
+            <% } %>
           </div>
-          <% }) %>
-          <% } else { %>
-          <div class="error">No logs found</div>
-          <% } %>
+        </div>
+        <div>
+          <h2>App Config</h2>
+          <div class="app-config">
+            <% appConfig.forEach(config => { %>
+            <div class="config-line">
+              <span> <%-config.item_key%>: </span>
+              <span class="config-val"> <%-config.value%> </span>
+            </div>
+            <% }) %>
+          </div>
         </div>
       </div>
     </div>
