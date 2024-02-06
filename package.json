@@ -7,8 +7,8 @@
     "db-init": "ts-node --transpileOnly src/db/db-init.ts",
     "db-test": "ts-node --transpileOnly src/db/db-test.ts",
     "build": "docker build -t weatherman .",
-    "daemon": "docker-compose up -d",
-    "daemon:kill": "docker-compose down"
+    "daemon": "docker compose up -d",
+    "daemon:kill": "docker compose down"
   },
   "repository": {
     "type": "git",
