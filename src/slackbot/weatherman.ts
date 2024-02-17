@@ -49,29 +49,12 @@ webClient.users.list({}).then((res) => {
   users = res.members || [];
 });
 
-socketClient.on('connecting', () => {
-  logNetworkEvent('Connecting...');
-});
-
 socketClient.on('connected', () => {
   console.log('Weatherman Connected');
-  logNetworkEvent('Weatherman Connected');
-});
-
-socketClient.on('disconnecting', () => {
-  logNetworkEvent('Disconnecting');
-});
-
-socketClient.on('disconnected', () => {
-  logNetworkEvent('Disconnected');
-});
-
-socketClient.on('reconnecting', () => {
-  logNetworkEvent('Reconnecting...');
 });
 
 socketClient.on('error', (error) => {
-  logNetworkEvent(`Error: ${JSON.stringify(error)}`);
+  logNetworkEvent(`Socket error: ${JSON.stringify(error)}`);
 });
 
 socketClient.on('unable_to_socket_mode_start', (error) => {
