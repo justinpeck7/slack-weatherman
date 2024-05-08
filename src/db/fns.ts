@@ -52,11 +52,11 @@ export const logNetworkEvent = (event: string) => {
  * Get all of the logged app events for the past month
  * @returns {Array} all logs
  */
-export const getMonthlyAppLogs = async (): Promise<LogRow[]> => {
+export const getYearlyAppLogs = async (): Promise<LogRow[]> => {
   return await queryAll<LogRow>(
     `SELECT central_time_formatted, event
     FROM app_logs
-    WHERE timestamp >= datetime('now', '-1 month')
+    WHERE timestamp >= datetime('now', '-1 years')
     ORDER BY timestamp ASC`
   );
 };

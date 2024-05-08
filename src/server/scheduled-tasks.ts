@@ -8,9 +8,9 @@ const clearMonthlyLogs = () => {
       run(
         `DELETE FROM network_logs where timestamp <= datetime('now', '-1 years')`
       );
-      run(
+      /* run(
         `DELETE FROM app_logs where timestamp <= datetime('now', '-1 years')`
-      );
+      ); */
     },
     null,
     true,

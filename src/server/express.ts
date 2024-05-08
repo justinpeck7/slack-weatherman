@@ -2,8 +2,8 @@ import express from 'express';
 import path from 'path';
 import {
   getAllAppConfigVals,
-  getMonthlyAppLogs,
   getMonthlyNetworkLogs,
+  getYearlyAppLogs,
 } from '../db/fns';
 import { startScheduledTasks } from './scheduled-tasks';
 
@@ -17,7 +17,7 @@ export const startServer = () => {
 
   app.get('/dashboard', async (_, res) => {
     const [appLogs, networkLogs, appConfig] = await Promise.all([
-      getMonthlyAppLogs(),
+      getYearlyAppLogs(),
       getMonthlyNetworkLogs(),
       getAllAppConfigVals(),
     ]);
