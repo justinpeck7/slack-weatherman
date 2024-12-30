@@ -7,3 +7,9 @@ services:
       - ./database/:/usr/src/app/database
     ports:
       - '8080:8080'
+    networks:
+      - caddy
+
+networks:
+  caddy:
+    external: true
