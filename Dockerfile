@@ -6,4 +6,4 @@ COPY package.json package-lock.json* ./
 RUN npm i --omit=dev
 COPY . .
 
-CMD npm run start
+CMD ["npm", "run", "start"]

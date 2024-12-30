@@ -12,6 +12,11 @@ export const startServer = () => {
 
   const app = express();
 
+  app.use((req, res, next) => {
+    console.log(req, res);
+    next();
+  });
+
   app.set('view engine', 'ejs');
   app.set('views', path.join(__dirname, '../views'));
 
@@ -24,5 +29,5 @@ export const startServer = () => {
     res.render('dashboard', { appLogs, networkLogs, appConfig });
   });
 
-  app.listen(8080);
+  app.listen(8080, '0.0.0.0');
 };
